@@ -169,5 +169,3 @@ console.log(registry.has(['Microsoft', 'Macromedia', 'Google', 'Adobe']))
 <p align="center">💻  💻  💻  💻</p>
 
 > Don't forget to go through the tests too, they offer additional insight. 📚
-
-<p align="center">💻  💻  💻  💻</p>
