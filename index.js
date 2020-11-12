@@ -1,0 +1,252 @@
+'use strict'
+// @ts-check
+
+var spawnSync = require('child_process').spawnSync
+
+/**
+ * RegKeys,
+ *
+ * allows querying of Registry (sub)keys
+ * on Windows, uses the OS internal **reg.exe** executable.
+ *
+ * License: MIT,
+ *
+ * Author: Igor Dimitrijević <igor.dvlpr@gmail.com>, 2020.
+ */
+class RegKeys {
+  /**
+   * Creates a RegKeys object.
+   * @param {string} rootKey
+   */
+  constructor(rootKey) {
+    this.query = this.expandRoot(rootKey)
+    this.keys = []
+  }
+
+  /**
+   * Extracts the root key of the given (sub)key.
+   * @param {*} key The root key to process.
+   * @returns {string}
+   */
+  extractRootKey(key) {
+    if (key && typeof key === 'string') {
+      // convert to uppercase for consistency,
+      // and to avoid case mismatching
+      key = key.toUpperCase()
+
+      // magic 🔮😂
+      const keys = key.split(/\/|\\/)
+
+      if (keys.length > 0) {
+        return keys[0]
+      }
+
+      return key
+    } else {
+      return ''
+    }
+  }
+
+  /**
+   * Expands = converts short root keys to
+   * fully-qualified ones and returns it
+   * as a string.
+   *
+   * If no value is provided it will return 'HKEY_CURRENT_USER'.
+   * @param {string} key The key to expand.
+   * @returns {string} The expanded root key.
+   */
+  expandRoot(key) {
+    if (typeof key === 'string') {
+      const keyRoot = this.extractRootKey(key)
+      let result = key
+
+      if (keyRoot.length === 0) {
+        return 'HKEY_CURRENT_USER'
+      }
+
+      let didExpand = false
+
+      switch (keyRoot) {
+        case 'HKCR': {
+          result = 'HKEY_CLASSES_ROOT'
+          didExpand = true
+          break
+        }
+
+        case 'HKCU': {
+          result = 'HKEY_CURRENT_USER'
+          didExpand = true
+          break
+        }
+
+        case 'HKLM': {
+          result = 'HKEY_LOCAL_MACHINE'
+          didExpand = true
+          break
+        }
+
+        case 'HKU': {
+          result = 'HKEY_USERS'
+          didExpand = true
+          break
+        }
+
+        case 'HKCC': {
+          result = 'HKEY_CURRENT_CONFIGURATION'
+          didExpand = true
+          break
+        }
+      }
+
+      if (didExpand) {
+        result = key.replace(new RegExp('^' + keyRoot, 'i'), result)
+      }
+
+      result = result.replace(new RegExp(/\//, 'gi'), '\\')
+
+      return result
+    }
+
+    return 'HKEY_CURRENT_USER'
+  }
+
+  /**
+   *
+   * @param {boolean} [forceRefresh=false]
+   * @returns {string[]}
+   */
+  get(forceRefresh = false) {
+    if (this.keys.length > 0 && !forceRefresh) {
+      return this.keys
+    }
+
+    const count = this.query.length
+
+    if (count < 4) {
+      return []
+    }
+
+    try {
+      const shell = spawnSync('REG', ['QUERY', this.query, '/f "*" /k'], {
+        stdio: 'pipe',
+        shell: true,
+      })
+      const output = shell.stdout.toString()
+      let searchKey = this.query
+
+      this.keys = output.split('\r\n')
+
+      if (count > 0) {
+        if (searchKey[count - 1] !== '\\') {
+          searchKey += '\\'
+        }
+      }
+
+      this.keys = this.keys
+        .map((key) => {
+          if (key.indexOf(this.query) === 0) {
+            return key.replace(searchKey, '')
+          }
+        })
+        .filter(Boolean)
+    } catch (exp) {
+      console.error(exp)
+      return this.keys
+    }
+
+    return this.keys
+  }
+
+  /**
+   * @param {string} searchFor
+   * @param {boolean} [caseSensitive=false]
+   * @returns {boolean}
+   */
+  hasKey(searchFor, caseSensitive = false) {
+    if (!searchFor || typeof searchFor !== 'string' || searchFor.length === 0) {
+      return false
+    }
+
+    if (this.keys.length === 0) {
+      this.keys = this.get()
+    }
+
+    let index = -1
+
+    if (caseSensitive) {
+      index = this.keys.indexOf(searchFor)
+    } else {
+      index = this.keys.findIndex((key) => {
+        return key.toLowerCase() === searchFor.toLowerCase()
+      })
+    }
+
+    return index > -1
+  }
+
+  /**
+   *
+   * @param {string[]} list
+   * @param {boolean} [caseSensitive=false]
+   * @returns {boolean[]}
+   */
+  hasKeys(list, caseSensitive = false) {
+    if (!list || !list instanceof Array) {
+      return []
+    }
+
+    const count = list.length
+    const result = []
+
+    if (count === 0) {
+      return result
+    }
+
+    if (this.keys.length === 0) {
+      this.keys = this.get()
+    }
+
+    for (let i = 0; i < count; i++) {
+      let index = -1
+
+      if (caseSensitive) {
+        index = this.keys.indexOf(list[i])
+      } else {
+        index = this.keys.findIndex((key) => {
+          return key.toLowerCase() === list[i].toLowerCase()
+        })
+      }
+
+      result.push(index > -1)
+    }
+
+    return result
+  }
+
+  /**
+   *
+   * @param {string|string[]} value
+   * @param {boolean} [value=false]
+   * @returns {boolean|boolean[]}
+   */
+  has(value, caseSensitive = false) {
+    if (!value) {
+      return false
+    }
+
+    if (value instanceof Array) {
+      return this.hasKeys(value, caseSensitive)
+    } else if (typeof value === 'string') {
+      return this.hasKey(value, caseSensitive)
+    }
+
+    return false
+  }
+
+  refresh() {
+    this.keys = []
+  }
+}
+
+module.exports = RegKeys

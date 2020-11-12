@@ -1,0 +1,33 @@
+{
+  "name": "@igordvlpr/regkeys",
+  "version": "1.0.0",
+  "description": "An NPM package for querying Windows registry (sub)keys.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --slow 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/igorskyflyer/npm-regkeys.git"
+  },
+  "keywords": [
+    "registry",
+    "windows",
+    "fetch",
+    "igordvlpr",
+    "read",
+    "system",
+    "os",
+    "utility"
+  ],
+  "author": "Igor Dimitrijević",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/igorskyflyer/npm-regkeys/issues"
+  },
+  "homepage": "https://github.com/igorskyflyer/npm-regkeys#readme",
+  "devDependencies": {
+    "mocha": "8.1.1",
+    "chai": "4.2.0"
+  }
+}
