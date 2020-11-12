@@ -65,3 +65,6 @@ typings/
 
 # Illustrator files
 *.ai
+
+# TypeScript types
+/types
