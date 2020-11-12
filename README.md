@@ -85,6 +85,8 @@ keys.forEach((key) => {
 
 <p align="center">💻  💻  💻  💻</p>
 
+<a name="hasKey"></a>
+
 ```
 hasKey(searchFor: string, caseSensitive: boolean = false): boolean
 ```
@@ -110,6 +112,8 @@ const registry = new RegKeys('HKLM/Software')
 // 😂😂😂😂😂😂
 console.log(registry.hasKey('Microsoft'))
 ```
+
+<a name="hasKeys"></a>
 
 <p align="center">💻  💻  💻  💻</p>
 
@@ -142,7 +146,7 @@ console.log(registry.hasKeys(['Microsoft', 'Macromedia', 'Google', 'Adobe']))
 has(value: string|string[], caseSensitive: boolean = false): boolean|boolean[]
 ```
 
-> A generic method that checks whether the given (sub)key(s) is/are a direct child of the currently selected key. See both <a href="#">hasKey()</a> and <a href="#">hasKeys()</a>. You can use this method for own convenience, it will pick the suited method depending on the type of the **value** parameter,
+> A generic method that checks whether the given (sub)key(s) is/are a direct child of the currently selected key. See both <a href="#hasKey">hasKey()</a> and <a href="#hasKeys">hasKeys()</a>. You can use this method for own convenience, it will pick the suited method depending on the type of the **value** parameter,
 
 - **value**: _string|string[]_, the key(s) to search for,
 - **caseSensitive**: _boolean_, indicates whether the search should be case-sensitive or not. Defaults to **false**,
