@@ -168,4 +168,37 @@ console.log(registry.has(['Microsoft', 'Macromedia', 'Google', 'Adobe']))
 
 <p align="center">💻  💻  💻  💻</p>
 
+```
+clear(): void
+```
+
+> Clears the cached result, if any,
+
+returns a **void**.
+
+> **NOTE**: it will auto-fetch the subkeys if the internal cache is empty = you didn't call **get()** before calling this method.
+
+##### Example
+
+```
+const RegKeys = require('@igordvlpr/regkeys')
+
+const registry = new RegKeys('HKLM/Software')
+
+// fetch subkeys and cache them
+let keys = registry.get()
+
+// 🔮 do something with the registry ⭐
+
+// clear the cached result
+registry.clear()
+
+// refetch (new) subkeys
+keys = registry.get()
+
+console.log(keys)
+```
+
+<p align="center">💻  💻  💻  💻</p>
+
 > Don't forget to go through the tests too, they offer additional insight. 📚

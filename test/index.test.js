@@ -85,5 +85,18 @@ describe('hasKey()', () => {
 })
 
 // has()
-// there were test for this method initially,
+// there were tests for this method initially,
 // but I deleted them 😂, not needed actually 👾
+
+// clear()
+describe('clear()', () => {
+  // test for checking for registry (sub)keys
+  it('12. Should clear the keys-cache', () => {
+    const registry = new RegKeys('HKLM/Software')
+    const keys = registry.get()
+
+    registry.clear()
+
+    chai.isTrue(keys.length > 0 && registry.keys.length === 0)
+  })
+})

@@ -1,5 +1,4 @@
 'use strict'
-// @ts-check
 
 var spawnSync = require('child_process').spawnSync
 
@@ -19,100 +18,14 @@ class RegKeys {
    * @param {string} rootKey
    */
   constructor(rootKey) {
-    this.query = this.expandRoot(rootKey)
+    this.query = expandRoot(rootKey)
     this.keys = []
   }
 
   /**
-   * Extracts the root key of the given (sub)key.
-   * @param {*} key The root key to process.
-   * @returns {string}
-   */
-  extractRootKey(key) {
-    if (key && typeof key === 'string') {
-      // convert to uppercase for consistency,
-      // and to avoid case mismatching
-      key = key.toUpperCase()
-
-      // magic 🔮😂
-      const keys = key.split(/\/|\\/)
-
-      if (keys.length > 0) {
-        return keys[0]
-      }
-
-      return key
-    } else {
-      return ''
-    }
-  }
-
-  /**
-   * Expands = converts short root keys to
-   * fully-qualified ones and returns it
-   * as a string.
+   * Gets the (sub)keys for the given (root)key.
    *
-   * If no value is provided it will return 'HKEY_CURRENT_USER'.
-   * @param {string} key The key to expand.
-   * @returns {string} The expanded root key.
-   */
-  expandRoot(key) {
-    if (typeof key === 'string') {
-      const keyRoot = this.extractRootKey(key)
-      let result = key
-
-      if (keyRoot.length === 0) {
-        return 'HKEY_CURRENT_USER'
-      }
-
-      let didExpand = false
-
-      switch (keyRoot) {
-        case 'HKCR': {
-          result = 'HKEY_CLASSES_ROOT'
-          didExpand = true
-          break
-        }
-
-        case 'HKCU': {
-          result = 'HKEY_CURRENT_USER'
-          didExpand = true
-          break
-        }
-
-        case 'HKLM': {
-          result = 'HKEY_LOCAL_MACHINE'
-          didExpand = true
-          break
-        }
-
-        case 'HKU': {
-          result = 'HKEY_USERS'
-          didExpand = true
-          break
-        }
-
-        case 'HKCC': {
-          result = 'HKEY_CURRENT_CONFIGURATION'
-          didExpand = true
-          break
-        }
-      }
-
-      if (didExpand) {
-        result = key.replace(new RegExp('^' + keyRoot, 'i'), result)
-      }
-
-      result = result.replace(new RegExp(/\//, 'gi'), '\\')
-
-      return result
-    }
-
-    return 'HKEY_CURRENT_USER'
-  }
-
-  /**
-   *
+   * NOTE: Results are **cached**!
    * @param {boolean} [forceRefresh=false]
    * @returns {string[]}
    */
@@ -159,6 +72,7 @@ class RegKeys {
   }
 
   /**
+   * Checks whether the given (sub)key is a direct child of the currently selected key.
    * @param {string} searchFor
    * @param {boolean} [caseSensitive=false]
    * @returns {boolean}
@@ -186,13 +100,13 @@ class RegKeys {
   }
 
   /**
-   *
+   * Checks whether the given (sub)keys are a direct child of the currently selected key.
    * @param {string[]} list
    * @param {boolean} [caseSensitive=false]
    * @returns {boolean[]}
    */
   hasKeys(list, caseSensitive = false) {
-    if (!list || !list instanceof Array) {
+    if (!list || !(list instanceof Array)) {
       return []
     }
 
@@ -225,10 +139,12 @@ class RegKeys {
   }
 
   /**
-   *
+   * A generic method that checks whether the given (sub)key(s) is/are a direct child of the currently selected key. You can use this method for own convenience, it will pick the suited method depending on the type of the **value** parameter.
    * @param {string|string[]} value
    * @param {boolean} [value=false]
    * @returns {boolean|boolean[]}
+   * @see hasKey
+   * @see hasKeys
    */
   has(value, caseSensitive = false) {
     if (!value) {
@@ -244,9 +160,103 @@ class RegKeys {
     return false
   }
 
-  refresh() {
+  /**
+   * Clears the cached result, if any.
+   * @returns {void}
+   */
+  clear() {
     this.keys = []
   }
+}
+
+// 💪 Helper functions 💪
+
+/**
+ * Extracts the root key of the given (sub)key.
+ * @param {*} key The root key to process.
+ * @returns {string}
+ */
+function extractRootKey(key) {
+  if (key && typeof key === 'string') {
+    // convert to uppercase for consistency,
+    // and to avoid case mismatching
+    key = key.toUpperCase()
+
+    // magic 🔮😂
+    const keys = key.split(/\/|\\/)
+
+    if (keys.length > 0) {
+      return keys[0]
+    }
+
+    return key
+  } else {
+    return ''
+  }
+}
+
+/**
+ * Expands = converts short root keys to
+ * fully-qualified ones and returns it
+ * as a string.
+ *
+ * If no value is provided it will return 'HKEY_CURRENT_USER'.
+ * @param {string} key The key to expand.
+ * @returns {string} The expanded root key.
+ */
+function expandRoot(key) {
+  if (typeof key === 'string') {
+    const keyRoot = extractRootKey(key)
+    let result = key
+
+    if (keyRoot.length === 0) {
+      return 'HKEY_CURRENT_USER'
+    }
+
+    let didExpand = false
+
+    switch (keyRoot) {
+      case 'HKCR': {
+        result = 'HKEY_CLASSES_ROOT'
+        didExpand = true
+        break
+      }
+
+      case 'HKCU': {
+        result = 'HKEY_CURRENT_USER'
+        didExpand = true
+        break
+      }
+
+      case 'HKLM': {
+        result = 'HKEY_LOCAL_MACHINE'
+        didExpand = true
+        break
+      }
+
+      case 'HKU': {
+        result = 'HKEY_USERS'
+        didExpand = true
+        break
+      }
+
+      case 'HKCC': {
+        result = 'HKEY_CURRENT_CONFIGURATION'
+        didExpand = true
+        break
+      }
+    }
+
+    if (didExpand) {
+      result = key.replace(new RegExp('^' + keyRoot, 'i'), result)
+    }
+
+    result = result.replace(new RegExp(/\//, 'gi'), '\\')
+
+    return result
+  }
+
+  return 'HKEY_CURRENT_USER'
 }
 
 module.exports = RegKeys
