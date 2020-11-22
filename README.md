@@ -35,7 +35,7 @@ returns the **RegKeys** object.
 ##### Example
 
 ```
-const RegKeys = require('@igordvlpr/regkeys')
+const RegKeys = require('@igor.dvlpr/regkeys')
 
 // for your convenience, you can use forward slashes,
 // since internally Windows only supports back slashes,
@@ -71,7 +71,7 @@ returns a **string[]**.
 ##### Example
 
 ```
-const RegKeys = require('@igordvlpr/regkeys')
+const RegKeys = require('@igor.dvlpr/regkeys')
 
 const registry = new RegKeys('HKCR')
 const keys = registry.get()
@@ -103,7 +103,7 @@ returns a **boolean**.
 ##### Example
 
 ```
-const RegKeys = require('@igordvlpr/regkeys')
+const RegKeys = require('@igor.dvlpr/regkeys')
 
 const registry = new RegKeys('HKLM/Software')
 
@@ -133,7 +133,7 @@ returns a **boolean[]**.
 ##### Example
 
 ```
-const RegKeys = require('@igordvlpr/regkeys')
+const RegKeys = require('@igor.dvlpr/regkeys')
 
 const registry = new RegKeys('HKLM/Software')
 
@@ -158,7 +158,7 @@ returns a **boolean|boolean[]**.
 ##### Example
 
 ```
-const RegKeys = require('@igordvlpr/regkeys')
+const RegKeys = require('@igor.dvlpr/regkeys')
 
 const registry = new RegKeys('HKLM/Software')
 
@@ -181,7 +181,7 @@ returns a **void**.
 ##### Example
 
 ```
-const RegKeys = require('@igordvlpr/regkeys')
+const RegKeys = require('@igor.dvlpr/regkeys')
 
 const registry = new RegKeys('HKLM/Software')
 
