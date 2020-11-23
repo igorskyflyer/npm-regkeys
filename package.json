@@ -1,7 +1,7 @@
 {
   "name": "@igor.dvlpr/regkeys",
   "version": "1.0.2",
-  "description": "An NPM package for querying Windows registry (sub)keys.",
+  "description": "An NPM package for querying Windows registry keys.",
   "main": "index.js",
   "scripts": {
     "test": "mocha --slow 0",
