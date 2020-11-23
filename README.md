@@ -1,7 +1,7 @@
 <p align="center"><img src="https://github.com/igorskyflyer/npm-regkeys/raw/master/assets/RegKeys.png" style="max-width: 200px"></p>
 
 <h3>RegKeys,</h3>
-<h6>an NPM package for querying Windows registry (sub)keys.</h6>
+<h6>an NPM package for querying Windows registry keys.</h6>
 
 _Uses the **reg.exe** system executable._
 
@@ -18,7 +18,7 @@ constructor(rootKey): RegKeys
 > Creates the RegKeys object.
 > Do **not** forget to set the **_rootKey_** parameter.
 
-- **rootKey**: _string_, the key you later want to manipulate with, i.e. read subkeys, check for subkeys, etc.,
+- **rootKey**: _string_, the key you later want to manipulate with, i.e. read keys, check for keys, etc.,
 
 > **rootKey** can either be an expanded or a non-expanded key, i.e.:
 
@@ -62,7 +62,7 @@ const registry = new RegKeys('HKLM/Software')
 get(forceRefresh: boolean = false): string[]
 ```
 
-> Gets the (sub)keys for the given (root)key.
+> Gets the keys for the given root key.
 
 - **forceRefresh**: _boolean_, indicates whether the registry should be queryied again since the result of this method is cached internally, for performance,
 
@@ -91,14 +91,14 @@ keys.forEach((key) => {
 hasKey(searchFor: string, caseSensitive: boolean = false): boolean
 ```
 
-> Checks whether the given (sub)key is a direct child of the currently selected key.
+> Checks whether the given key is a direct child of the currently selected key.
 
 - **searchFor**: _string_, the key to search for,
 - **caseSensitive**: _boolean_, indicates whether the search should be case-sensitive or not. Defaults to **false**,
 
 returns a **boolean**.
 
-> **NOTE**: it will auto-fetch the subkeys if the internal cache is empty = you didn't call **get()** before calling this method.
+> **NOTE**: it will auto-fetch the keys if the internal cache is empty = you didn't call **get()** before calling this method.
 
 ##### Example
 
@@ -121,14 +121,14 @@ console.log(registry.hasKey('Microsoft'))
 hasKeys(searchFor: string[], caseSensitive: boolean = false): boolean
 ```
 
-> Checks whether the given (sub)keys are a direct child of the currently selected key.
+> Checks whether the given keys are a direct child of the currently selected key.
 
 - **list**: _string[]_, the keys to search for,
 - **caseSensitive**: _boolean_, indicates whether the search should be case-sensitive or not. Defaults to **false**,
 
 returns a **boolean[]**.
 
-> **NOTE**: it will auto-fetch the subkeys if the internal cache is empty = you didn't call **get()** before calling this method.
+> **NOTE**: it will auto-fetch the keys if the internal cache is empty = you didn't call **get()** before calling this method.
 
 ##### Example
 
@@ -146,14 +146,14 @@ console.log(registry.hasKeys(['Microsoft', 'Macromedia', 'Google', 'Adobe']))
 has(value: string|string[], caseSensitive: boolean = false): boolean|boolean[]
 ```
 
-> A generic method that checks whether the given (sub)key(s) is/are a direct child of the currently selected key. See both <a href="#hasKey">hasKey()</a> and <a href="#hasKeys">hasKeys()</a>. You can use this method for own convenience, it will pick the suited method depending on the type of the **value** parameter,
+> A generic method that checks whether the given key(s) is/are a direct child of the currently selected key. See both <a href="#hasKey">hasKey()</a> and <a href="#hasKeys">hasKeys()</a>. You can use this method for own convenience, it will pick the suited method depending on the type of the **value** parameter,
 
 - **value**: _string|string[]_, the key(s) to search for,
 - **caseSensitive**: _boolean_, indicates whether the search should be case-sensitive or not. Defaults to **false**,
 
 returns a **boolean|boolean[]**.
 
-> **NOTE**: it will auto-fetch the subkeys if the internal cache is empty = you didn't call **get()** before calling this method.
+> **NOTE**: it will auto-fetch the keys if the internal cache is empty = you didn't call **get()** before calling this method.
 
 ##### Example
 
@@ -176,8 +176,6 @@ clear(): void
 
 returns a **void**.
 
-> **NOTE**: it will auto-fetch the subkeys if the internal cache is empty = you didn't call **get()** before calling this method.
-
 ##### Example
 
 ```
@@ -185,7 +183,7 @@ const RegKeys = require('@igor.dvlpr/regkeys')
 
 const registry = new RegKeys('HKLM/Software')
 
-// fetch subkeys and cache them
+// fetch keys and cache them
 let keys = registry.get()
 
 // 🔮 do something with the registry ⭐
@@ -193,7 +191,7 @@ let keys = registry.get()
 // clear the cached result
 registry.clear()
 
-// refetch (new) subkeys
+// refetch (new) keys
 keys = registry.get()
 
 console.log(keys)
