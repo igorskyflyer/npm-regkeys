@@ -5,7 +5,7 @@ var spawnSync = require('child_process').spawnSync
 /**
  * RegKeys,
  *
- * allows querying of Registry (sub)keys
+ * allows querying of Registry keys
  * on Windows, uses the OS internal **reg.exe** executable.
  *
  * License: MIT,
@@ -23,7 +23,7 @@ class RegKeys {
   }
 
   /**
-   * Gets the (sub)keys for the given (root)key.
+   * Gets the keys for the given root key.
    *
    * NOTE: Results are **cached**!
    * @param {boolean} [forceRefresh=false]
@@ -72,7 +72,7 @@ class RegKeys {
   }
 
   /**
-   * Checks whether the given (sub)key is a direct child of the currently selected key.
+   * Checks whether the given key is a direct child of the currently selected key.
    * @param {string} searchFor
    * @param {boolean} [caseSensitive=false]
    * @returns {boolean}
@@ -83,7 +83,7 @@ class RegKeys {
     }
 
     if (this.keys.length === 0) {
-      this.keys = this.get()
+      this.get()
     }
 
     let index = -1
@@ -100,7 +100,7 @@ class RegKeys {
   }
 
   /**
-   * Checks whether the given (sub)keys are a direct child of the currently selected key.
+   * Checks whether the given keys are a direct child of the currently selected key.
    * @param {string[]} list
    * @param {boolean} [caseSensitive=false]
    * @returns {boolean[]}
@@ -118,7 +118,7 @@ class RegKeys {
     }
 
     if (this.keys.length === 0) {
-      this.keys = this.get()
+      this.get()
     }
 
     for (let i = 0; i < count; i++) {
@@ -139,7 +139,7 @@ class RegKeys {
   }
 
   /**
-   * A generic method that checks whether the given (sub)key(s) is/are a direct child of the currently selected key. You can use this method for own convenience, it will pick the suited method depending on the type of the **value** parameter.
+   * A generic method that checks whether the given key(s) is/are a direct child of the currently selected key. You can use this method for own convenience, it will pick the suited method depending on the type of the **value** parameter.
    * @param {string|string[]} value
    * @param {boolean} [value=false]
    * @returns {boolean|boolean[]}
@@ -172,7 +172,7 @@ class RegKeys {
 // 💪 Helper functions 💪
 
 /**
- * Extracts the root key of the given (sub)key.
+ * Extracts the root key of the given key.
  * @param {*} key The root key to process.
  * @returns {string}
  */
