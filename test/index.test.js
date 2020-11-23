@@ -41,7 +41,7 @@ describe('get()', () => {
     chai.isAbove(new RegKeys('HKLM').get().length, 0)
   })
 
-  // test for reading registry (sub)keys
+  // test for reading registry keys
   it('7. Should return true when reading HKLM\\SOFTWARE and checking for the "Microsoft" subkey in the results', () => {
     // 👽 fun-fact: reg natively uses backslashes,
     //    for denoting registry structure but you can use slashes,
@@ -52,7 +52,7 @@ describe('get()', () => {
 
 // hasKeys()
 describe('hasKeys()', () => {
-  // test for checking for registry (sub)keys
+  // test for checking for registry keys
   it('8. Should return [true, true] for the subkeys ["Software", "Hardware"], case-insensitive', () => {
     chai.deepEqual(new RegKeys('HKLM').hasKeys(['Software', 'Hardware']), [
       true,
@@ -60,7 +60,7 @@ describe('hasKeys()', () => {
     ])
   })
 
-  // test for checking for registry (sub)keys
+  // test for checking for registry keys
   it('9. Should return [false, true] for subkeys ["Software", "HARDWARE"], case-sensitive', () => {
     chai.deepEqual(
       new RegKeys('HKLM').hasKeys(['Software', 'HARDWARE'], true),
@@ -71,13 +71,13 @@ describe('hasKeys()', () => {
 
 // hasKey()
 describe('hasKey()', () => {
-  // test for checking for registry (sub)keys
+  // test for checking for registry keys
   it('10. Should return true for the subkey "Software", case-insensitive', () => {
     // the actual subkey is in all capitals, SOFTWARE
     chai.isTrue(new RegKeys('HKLM').hasKey('Software'))
   })
 
-  // test for checking for registry (sub)keys
+  // test for checking for registry keys
   it('11. Should return false for subkey "Software", case-sensitive', () => {
     // the actual subkey is in all capitals, SOFTWARE
     chai.isFalse(new RegKeys('HKLM').hasKey('Software', true))
@@ -90,7 +90,7 @@ describe('hasKey()', () => {
 
 // clear()
 describe('clear()', () => {
-  // test for checking for registry (sub)keys
+  // test for checking for registry keys
   it('12. Should clear the keys-cache', () => {
     const registry = new RegKeys('HKLM/Software')
     const keys = registry.get()
