@@ -1,5 +1,6 @@
 /assets/
-.github
-.vscode
+/.github/
+/.vscode/
 .gitignore
 /test/
+*.tgz
