@@ -41,7 +41,10 @@ class RegKeys {
     }
 
     try {
-      const shell = spawnSync('REG', ['QUERY', this.query, '/f "*" /k'], {
+      // quotes are needed when keys contain spaces
+      const query = toQuoteOrNotToQuote(this.query)
+
+      const shell = spawnSync('REG', ['QUERY', query, '/f "*" /k'], {
         stdio: 'pipe',
         shell: true,
       })
@@ -257,6 +260,33 @@ function expandRoot(key) {
   }
 
   return 'HKEY_CURRENT_USER'
+}
+
+/**
+ * Wraps the path argument around quotes,
+ * so that spaces in the key names,
+ * are supported.
+ * @param {string} arg
+ * @returns {string}
+ */
+function toQuoteOrNotToQuote(arg) {
+  if (arg) {
+    const count = arg.length
+
+    if (count > 0) {
+      if (arg[0] !== '"') {
+        arg = '"' + arg
+      }
+
+      if (arg[count - 1] !== '"') {
+        arg += '"'
+      }
+
+      return arg
+    }
+  }
+
+  return ''
 }
 
 module.exports = RegKeys
