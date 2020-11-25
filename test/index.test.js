@@ -45,8 +45,18 @@ describe('get()', () => {
     chai.isAbove(new RegKeys('HKLM').get().length, 0)
   })
 
+  // test for reading the registry keys - spaces in path
+  it('7. should return a non-empty string[] when passing a valid (non-expanded) rootkey with spaces in path', () => {
+    chai.isAbove(
+      new RegKeys(
+        'HKLM/SOFTWARE/Microsoft/Windows/CurrentVersion/App Paths'
+      ).get().length,
+      0
+    )
+  })
+
   // test for reading registry keys
-  it('7. should return true when reading HKLM\\SOFTWARE and checking for the "Microsoft" subkey in the results', () => {
+  it('8. should return true when reading HKLM\\SOFTWARE and checking for the "Microsoft" subkey in the results', () => {
     // 👽 fun-fact: reg natively uses backslashes,
     //    for denoting registry structure but you can use slashes,
     //    for your (and my 🤗) convenience.
@@ -57,7 +67,7 @@ describe('get()', () => {
 // hasKeys()
 describe('hasKeys()', () => {
   // test for checking for registry keys
-  it('8. should return [true, true] for the subkeys ["Software", "Hardware"], case-insensitive', () => {
+  it('9. should return [true, true] for the subkeys ["Software", "Hardware"], case-insensitive', () => {
     chai.deepEqual(new RegKeys('HKLM').hasKeys(['Software', 'Hardware']), [
       true,
       true,
@@ -65,7 +75,7 @@ describe('hasKeys()', () => {
   })
 
   // test for checking for registry keys
-  it('9. should return [false, true] for subkeys ["Software", "HARDWARE"], case-sensitive', () => {
+  it('10. should return [false, true] for subkeys ["Software", "HARDWARE"], case-sensitive', () => {
     chai.deepEqual(
       new RegKeys('HKLM').hasKeys(['Software', 'HARDWARE'], true),
       [false, true]
@@ -76,13 +86,13 @@ describe('hasKeys()', () => {
 // hasKey()
 describe('hasKey()', () => {
   // test for checking for registry keys
-  it('10. should return true for the subkey "Software", case-insensitive', () => {
+  it('11. should return true for the subkey "Software", case-insensitive', () => {
     // the actual subkey is in all capitals, SOFTWARE
     chai.isTrue(new RegKeys('HKLM').hasKey('Software'))
   })
 
   // test for checking for registry keys
-  it('11. should return false for subkey "Software", case-sensitive', () => {
+  it('12. should return false for subkey "Software", case-sensitive', () => {
     // the actual subkey is in all capitals, SOFTWARE
     chai.isFalse(new RegKeys('HKLM').hasKey('Software', true))
   })
@@ -95,7 +105,7 @@ describe('hasKey()', () => {
 // clear()
 describe('clear()', () => {
   // test for checking for registry keys
-  it('12. should clear the keys-cache', () => {
+  it('13. should clear the keys-cache', () => {
     const registry = new RegKeys('HKLM/Software')
     const keys = registry.get()
 
