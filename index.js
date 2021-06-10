@@ -52,9 +52,18 @@ class RegKeys {
    *
    * NOTE: Results are **cached**!
    * @param {boolean} [forceRefresh=false]
+   * @throws Throws an error if the host machine is not running Windows OS.
    * @returns {string[]}
    */
   get(forceRefresh = false) {
+    if (!isWindows()) {
+      throw new Error('This function only runs on Windows operating system.')
+    }
+
+    if (!hasRegExecutable()) {
+      throw new Error('The required executable reg.exe is not available.')
+    }
+
     if (this.keys.length > 0 && !forceRefresh) {
       return this.keys
     }
@@ -73,24 +82,29 @@ class RegKeys {
         stdio: 'pipe',
         shell: true,
       })
-      const output = shell.stdout.toString()
-      let searchKey = this.query
 
-      this.keys = output.split('\r\n')
+      if (shell && shell.stdout) {
+        const output = shell.stdout.toString()
+        let searchKey = this.query
 
-      if (count > 0) {
-        if (searchKey[count - 1] !== '\\') {
-          searchKey += '\\'
-        }
-      }
+        this.keys = output.split('\r\n')
 
-      this.keys = this.keys
-        .map((key) => {
-          if (key.indexOf(this.query) === 0) {
-            return key.replace(searchKey, '')
+        if (count > 0) {
+          if (searchKey[count - 1] !== '\\') {
+            searchKey += '\\'
           }
-        })
-        .filter(Boolean)
+        }
+
+        this.keys = this.keys
+          .map((key) => {
+            if (key.indexOf(this.query) === 0) {
+              return key.replace(searchKey, '')
+            }
+          })
+          .filter(Boolean)
+      } else {
+        return this.keys
+      }
     } catch (exp) {
       console.error(exp)
       return this.keys
@@ -104,6 +118,7 @@ class RegKeys {
    *
    * NOTE: Results are **cached**!
    * @param {boolean} [forceRefresh=false]
+   * @throws Throws an error if the host machine is not running Windows OS.
    * @returns {Promise<string[]>}
    */
   async getAsync(forceRefresh = false) {
