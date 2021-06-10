@@ -397,6 +397,15 @@ function hasRegExecutable() {
 }
 
 /**
+ * Asynchronously returns a Boolean whether the reg.exe executable
+ * is available on the current machine.
+ * @returns {Promise<boolean>}
+ */
+async function hasRegExecutableAsync() {
+  return hasRegExecutable()
+}
+
+/**
  * Wraps the path argument around quotes,
  * so that spaces in the key names,
  * are supported.
