@@ -364,6 +364,10 @@ function expandRoot(key) {
   return 'HKEY_CURRENT_USER'
 }
 
+/**
+ * Returns if we are running on a Windows machine.
+ * @returns {boolean}
+ */
 function isWindows() {
   return os.platform() === 'win32'
 }
