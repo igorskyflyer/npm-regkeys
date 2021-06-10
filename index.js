@@ -2,6 +2,7 @@
 
 var spawnSync = require('child_process').spawnSync
 var spawn = require('child_process').spawn
+var os = require('os')
 
 // custom type used for the searchFor() method
 /**
@@ -361,6 +362,10 @@ function expandRoot(key) {
   }
 
   return 'HKEY_CURRENT_USER'
+}
+
+function isWindows() {
+  return os.platform() === 'win32'
 }
 
 /**
