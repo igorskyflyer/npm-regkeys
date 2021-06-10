@@ -1,5 +1,16 @@
 'use strict'
 
+/**
+ * RegKeys,
+ *
+ * allows querying of Registry keys
+ * on Windows, uses the OS internal **reg.exe** executable.
+ *
+ * License: MIT,
+ *
+ * Author: Igor Dimitrijević <igor.dvlpr@gmail.com>, 2021.
+ */
+
 var spawnSync = require('child_process').spawnSync
 var spawn = require('child_process').spawn
 var os = require('os')
@@ -15,14 +26,7 @@ var os = require('os')
  */
 
 /**
- * RegKeys,
- *
- * allows querying of Registry keys
- * on Windows, uses the OS internal **reg.exe** executable.
- *
- * License: MIT,
- *
- * Author: Igor Dimitrijević <igor.dvlpr@gmail.com>, 2021.
+ * RegKeys class.
  */
 class RegKeys {
   /**
@@ -40,6 +44,8 @@ class RegKeys {
   static HKCU = 'HKEY_CURRENT_USER'
   static HKCC = 'HKEY_CURRENT_CONFIGURATION'
   static HKU = 'HKEY_USERS'
+  // executable name
+  static REG = 'reg.exe'
 
   /**
    * Synchronously gets the keys for the given root key.
@@ -63,7 +69,7 @@ class RegKeys {
       // quotes are needed when keys contain spaces
       const query = toQuoteOrNotToQuote(this.query)
 
-      const shell = spawnSync('REG', ['QUERY', query, '/f "*" /k'], {
+      const shell = spawnSync(RegKeys.REG, ['QUERY', query, '/f "*" /k'], {
         stdio: 'pipe',
         shell: true,
       })
@@ -365,11 +371,29 @@ function expandRoot(key) {
 }
 
 /**
- * Returns if we are running on a Windows machine.
+ * Returns a Boolean whether we are running on a Windows machine.
  * @returns {boolean}
  */
 function isWindows() {
   return os.platform() === 'win32'
+}
+
+/**
+ * Returns a Boolean whether the reg.exe executable
+ * is available on the current machine.
+ * @returns {boolean}
+ */
+function hasRegExecutable() {
+  const shell = spawnSync('where', [RegKeys.REG], {
+    stdio: 'pipe',
+    shell: true,
+  })
+
+  if (!shell || !shell.stdout) {
+    return false
+  } else {
+    return shell.stdout.toString().trim().indexOf(RegKeys.REG) > -1
+  }
 }
 
 /**
