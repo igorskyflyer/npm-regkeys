@@ -1,6 +1,17 @@
 'use strict'
 
 var spawnSync = require('child_process').spawnSync
+var spawn = require('child_process').spawn
+
+// custom type used for the searchFor() method
+/**
+ * @see searchFor
+ * @callback SearchPredicate
+ * @param {string} key
+ * @param {string} searchFor
+ * @param {number} index
+ * @returns {boolean}
+ */
 
 /**
  * RegKeys,
@@ -10,20 +21,27 @@ var spawnSync = require('child_process').spawnSync
  *
  * License: MIT,
  *
- * Author: Igor Dimitrijević <igor.dvlpr@gmail.com>, 2020.
+ * Author: Igor Dimitrijević <igor.dvlpr@gmail.com>, 2021.
  */
 class RegKeys {
   /**
    * Creates a RegKeys object.
-   * @param {string} rootKey
+   * @param {string} key
    */
-  constructor(rootKey) {
-    this.query = expandRoot(rootKey)
+  constructor(key) {
+    this.query = expandRoot(key)
     this.keys = []
   }
 
+  // for faster referencing
+  static HKLM = 'HKEY_LOCAL_MACHINE'
+  static HKCR = 'HKEY_CLASSES_ROOT'
+  static HKCU = 'HKEY_CURRENT_USER'
+  static HKCC = 'HKEY_CURRENT_CONFIGURATION'
+  static HKU = 'HKEY_USERS'
+
   /**
-   * Gets the keys for the given root key.
+   * Synchronously gets the keys for the given root key.
    *
    * NOTE: Results are **cached**!
    * @param {boolean} [forceRefresh=false]
@@ -75,7 +93,18 @@ class RegKeys {
   }
 
   /**
-   * Checks whether the given key is a direct child of the currently selected key.
+   * Asynchronously gets the keys for the given root key.
+   *
+   * NOTE: Results are **cached**!
+   * @param {boolean} [forceRefresh=false]
+   * @returns {Promise<string[]>}
+   */
+  async getAsync(forceRefresh = false) {
+    return this.get(forceRefresh)
+  }
+
+  /**
+   * Synchronously checks whether the given key is a direct child of the currently selected key.
    * @param {string} searchFor
    * @param {boolean} [caseSensitive=false]
    * @returns {boolean}
@@ -103,7 +132,17 @@ class RegKeys {
   }
 
   /**
-   * Checks whether the given keys are a direct child of the currently selected key.
+   * Asynchronously checks whether the given key is a direct child of the currently selected key.
+   * @param {string} searchFor
+   * @param {boolean} [caseSensitive=false]
+   * @returns {Promise<boolean>}
+   */
+  async hasKeyAsync(searchFor, caseSensitive = false) {
+    return this.hasKey(searchFor, caseSensitive)
+  }
+
+  /**
+   * Synchronously checks whether the given keys are a direct child of the currently selected key.
    * @param {string[]} list
    * @param {boolean} [caseSensitive=false]
    * @returns {boolean[]}
@@ -142,7 +181,17 @@ class RegKeys {
   }
 
   /**
-   * A generic method that checks whether the given key(s) is/are a direct child of the currently selected key. You can use this method for own convenience, it will pick the suited method depending on the type of the **value** parameter.
+   * Asynchronously checks whether the given keys are a direct child of the currently selected key.
+   * @param {string[]} list
+   * @param {boolean} [caseSensitive=false]
+   * @returns {Promise<boolean[]>}
+   */
+  async hasKeysAsync(list, caseSensitive = false) {
+    return this.hasKeys(list, caseSensitive)
+  }
+
+  /**
+   * A generic, synchronous method that checks whether the given key(s) is/are a direct child of the currently selected key. You can use this method for own convenience, it will pick the suited method depending on the type of the **value** parameter.
    * @param {string|string[]} value
    * @param {boolean} [value=false]
    * @returns {boolean|boolean[]}
@@ -164,6 +213,56 @@ class RegKeys {
   }
 
   /**
+   * A generic, asynchronous method that checks whether the given key(s) is/are a direct child of the currently selected key. You can use this method for own convenience, it will pick the suited method depending on the type of the **value** parameter.
+   * @param {string|string[]} value
+   * @param {boolean} [value=false]
+   * @returns {Promise<boolean|boolean[]>}
+   * @see hasKey
+   * @see hasKeys
+   */
+  async hasAsync(value, caseSensitive = false) {
+    return this.has(value, caseSensitive)
+  }
+
+  /**
+   * Provides a synchronous way to do keys-checking
+   * using a custom predicate function.
+   * @param {string} value
+   * @param {SearchPredicate} predicate
+   * @returns {boolean} it returns true upon finding the first match or false if no match is found or any of the both required parameters aren't set.
+   */
+  searchFor(value, predicate) {
+    if (!value || typeof predicate !== 'function') {
+      return false
+    }
+
+    if (this.keys.length === 0) {
+      this.get()
+    }
+
+    const count = this.keys.length
+
+    for (let i = 0; i < count; i++) {
+      if (predicate(this.keys[i], value, i)) {
+        return true
+      }
+    }
+
+    return false
+  }
+
+  /**
+   * Provides an asynchronous way to do keys-checking
+   * using a custom predicate function.
+   * @param {string} value
+   * @param {SearchPredicate} predicate
+   * @returns {Promise<boolean>} it returns true upon finding the first match or false if no match is found or any of the both required parameters aren't set.
+   */
+  async searchForAsync(value, predicate) {
+    return this.searchFor(value, predicate)
+  }
+
+  /**
    * Clears the cached result, if any.
    * @returns {void}
    */
@@ -173,6 +272,8 @@ class RegKeys {
 }
 
 // 💪 Helper functions 💪
+
+function getRegistryKeys() {}
 
 /**
  * Extracts the root key of the given key.
