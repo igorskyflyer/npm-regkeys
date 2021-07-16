@@ -1,4 +1,4 @@
-<p align="center"><img src="https://github.com/igorskyflyer/npm-regkeys/raw/master/assets/RegKeys.png" style="max-width: 200px"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/igorskyflyer/npm-regkeys/master/assets/RegKeys.png" width="170" height="170"></p>
 
 <h3>RegKeys,</h3>
 <h6>an NPM package for querying Windows registry keys.</h6>
