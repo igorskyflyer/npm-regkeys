@@ -11,9 +11,8 @@
  * Author: Igor Dimitrijević <igor.dvlpr@gmail.com>, 2021.
  */
 
-var spawnSync = require('child_process').spawnSync
-var spawn = require('child_process').spawn
-var os = require('os')
+const spawnSync = require('child_process').spawnSync
+const os = require('os')
 
 // custom type used for the searchFor() method
 /**
@@ -34,7 +33,7 @@ class RegKeys {
    * @param {string} key
    */
   constructor(key) {
-    this.query = expandRoot(key)
+    this.query = expandHive(key)
     this.keys = []
   }
 
@@ -44,8 +43,6 @@ class RegKeys {
   static HKCU = 'HKEY_CURRENT_USER'
   static HKCC = 'HKEY_CURRENT_CONFIGURATION'
   static HKU = 'HKEY_USERS'
-  // executable name
-  static REG = 'reg.exe'
 
   /**
    * Synchronously gets the keys for the given root key.
@@ -58,10 +55,6 @@ class RegKeys {
   get(forceRefresh = false) {
     if (!isWindows()) {
       throw new Error('This function only runs on Windows operating system.')
-    }
-
-    if (!hasRegExecutable()) {
-      throw new Error('The required executable reg.exe is not available.')
     }
 
     if (this.keys.length > 0 && !forceRefresh) {
@@ -78,7 +71,7 @@ class RegKeys {
       // quotes are needed when keys contain spaces
       const query = toQuoteOrNotToQuote(this.query)
 
-      const shell = spawnSync(RegKeys.REG, ['QUERY', query, '/f "*" /k'], {
+      const shell = spawnSync('reg.exe', ['query', query, '/f "*" /k'], {
         stdio: 'pipe',
         shell: true,
       })
@@ -294,15 +287,12 @@ class RegKeys {
 }
 
 // 💪 Helper functions 💪
-
-function getRegistryKeys() {}
-
 /**
- * Extracts the root key of the given key.
- * @param {*} key The root key to process.
+ * Extracts the hive of the given key.
+ * @param {*} key The key to process.
  * @returns {string}
  */
-function extractRootKey(key) {
+function extractHive(key) {
   if (key && typeof key === 'string') {
     // convert to uppercase for consistency,
     // and to avoid case mismatching
@@ -322,26 +312,26 @@ function extractRootKey(key) {
 }
 
 /**
- * Expands = converts short root keys to
+ * Expands = converts short hive names to
  * fully-qualified ones and returns it
  * as a string.
  *
  * If no value is provided it will return 'HKEY_CURRENT_USER'.
  * @param {string} key The key to expand.
- * @returns {string} The expanded root key.
+ * @returns {string} The expanded hive key.
  */
-function expandRoot(key) {
+function expandHive(key) {
   if (typeof key === 'string') {
-    const keyRoot = extractRootKey(key)
+    const hive = extractHive(key)
     let result = key
 
-    if (keyRoot.length === 0) {
+    if (hive.length === 0) {
       return 'HKEY_CURRENT_USER'
     }
 
     let didExpand = false
 
-    switch (keyRoot) {
+    switch (hive) {
       case 'HKCR': {
         result = 'HKEY_CLASSES_ROOT'
         didExpand = true
@@ -374,7 +364,7 @@ function expandRoot(key) {
     }
 
     if (didExpand) {
-      result = key.replace(new RegExp('^' + keyRoot, 'i'), result)
+      result = key.replace(new RegExp('^' + hive, 'i'), result)
     }
 
     result = result.replace(new RegExp(/\//, 'gi'), '\\')
@@ -391,33 +381,6 @@ function expandRoot(key) {
  */
 function isWindows() {
   return os.platform() === 'win32'
-}
-
-/**
- * Returns a Boolean whether the reg.exe executable
- * is available on the current machine.
- * @returns {boolean}
- */
-function hasRegExecutable() {
-  const shell = spawnSync('where', [RegKeys.REG], {
-    stdio: 'pipe',
-    shell: true,
-  })
-
-  if (!shell || !shell.stdout) {
-    return false
-  } else {
-    return shell.stdout.toString().trim().indexOf(RegKeys.REG) > -1
-  }
-}
-
-/**
- * Asynchronously returns a Boolean whether the reg.exe executable
- * is available on the current machine.
- * @returns {Promise<boolean>}
- */
-async function hasRegExecutableAsync() {
-  return hasRegExecutable()
 }
 
 /**
