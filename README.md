@@ -7,20 +7,22 @@ _Uses the **reg.exe** system executable._
 
 <h6>If you are looking for a cool implementation of this module, click <a href="https://github.com/igorskyflyer/npm-registry-apppaths">here</a>.</h6>
 
+> ✨ Since `v.2.0.0` async methods are available as well.
+
 <p align="center">💻  💻  💻  💻</p>
 
 #### API
 
 ```
-constructor(rootKey): RegKeys
+constructor(key): RegKeys
 ```
 
 > Creates the RegKeys object.
-> Do **not** forget to set the **_rootKey_** parameter.
+> Do **not** forget to set the **_key_** parameter.
 
-- **rootKey**: _string_, the key you later want to manipulate with, i.e. read keys, check for keys, etc.,
+- **key**: _string_, the key you later want to manipulate with, i.e. read keys, check for children keys, etc.,
 
-> **rootKey** can either be an expanded or a non-expanded key, i.e.:
+> **key** can either be an expanded or a non-expanded key, i.e.:
 
 | Non-expanded |          Expanded          |
 | :----------: | :------------------------: |
@@ -34,7 +36,7 @@ returns the **RegKeys** object.
 
 ##### Example
 
-```
+```js
 const RegKeys = require('@igor.dvlpr/regkeys')
 
 // for your convenience, you can use forward slashes,
@@ -44,21 +46,19 @@ const RegKeys = require('@igor.dvlpr/regkeys')
 // so...
 ```
 
-```
+```js
 // 😒
 const registry = new RegKeys('HKLM\\Software')
-```
 
-<p align="center"><strong>=</strong></p>
+// is the same as
 
-```
 // 🥳🎊
 const registry = new RegKeys('HKLM/Software')
 ```
 
 <p align="center">💻  💻  💻  💻</p>
 
-```
+```js
 get(forceRefresh: boolean = false): string[]
 ```
 
@@ -70,7 +70,7 @@ returns a **string[]**.
 
 ##### Example
 
-```
+```js
 const RegKeys = require('@igor.dvlpr/regkeys')
 
 const registry = new RegKeys('HKCR')
@@ -79,7 +79,7 @@ const keys = registry.get()
 // do something with the keys,
 // it's your fate, unlock it 😛
 keys.forEach((key) => {
-	console.log(key)
+  console.log(key)
 })
 ```
 
@@ -87,7 +87,7 @@ keys.forEach((key) => {
 
 <a name="hasKey"></a>
 
-```
+```js
 hasKey(searchFor: string, caseSensitive: boolean = false): boolean
 ```
 
@@ -102,7 +102,7 @@ returns a **boolean**.
 
 ##### Example
 
-```
+```js
 const RegKeys = require('@igor.dvlpr/regkeys')
 
 const registry = new RegKeys('HKLM/Software')
@@ -117,7 +117,7 @@ console.log(registry.hasKey('Microsoft'))
 
 <p align="center">💻  💻  💻  💻</p>
 
-```
+```js
 hasKeys(searchFor: string[], caseSensitive: boolean = false): boolean
 ```
 
@@ -132,7 +132,7 @@ returns a **boolean[]**.
 
 ##### Example
 
-```
+```js
 const RegKeys = require('@igor.dvlpr/regkeys')
 
 const registry = new RegKeys('HKLM/Software')
@@ -142,7 +142,7 @@ console.log(registry.hasKeys(['Microsoft', 'Macromedia', 'Google', 'Adobe']))
 
 <p align="center">💻  💻  💻  💻</p>
 
-```
+```js
 has(value: string|string[], caseSensitive: boolean = false): boolean|boolean[]
 ```
 
@@ -157,7 +157,7 @@ returns a **boolean|boolean[]**.
 
 ##### Example
 
-```
+```js
 const RegKeys = require('@igor.dvlpr/regkeys')
 
 const registry = new RegKeys('HKLM/Software')
@@ -168,7 +168,38 @@ console.log(registry.has(['Microsoft', 'Macromedia', 'Google', 'Adobe']))
 
 <p align="center">💻  💻  💻  💻</p>
 
+```js
+searchFor(value: string, predicate: SearchPredicate): boolean
 ```
+
+> Provides a way to do keys-checking using a custom predicate function,
+
+- **value**: _string_, the key name to find,
+- **predicate**: _SearchPredicate_, the callback that will do the actual querying, see the code example below,
+
+returns a **boolean**, i.e. true upon finding the first match or false if no match is found or any of the both required parameters aren't set.
+
+> **NOTE**: it will auto-fetch the keys if the internal cache is empty = you didn't call **get()** before calling this method.
+
+##### Example
+
+```js
+const RegKeys = require('@igor.dvlpr/regkeys')
+
+const registry = new RegKeys('HKLM/Software')
+
+// useful for custom search algorithms/behavior,
+// like demonstrated here, case-insensitive partial search
+console.log(
+  registry.searchFor('micro', (key, searchFor, i) => {
+    return key.toLowerCase().indexOf(searchFor.toLowerCase()) > -1
+  })
+)
+```
+
+<p align="center">💻  💻  💻  💻</p>
+
+```js
 clear(): void
 ```
 
@@ -178,7 +209,7 @@ returns a **void**.
 
 ##### Example
 
-```
+```js
 const RegKeys = require('@igor.dvlpr/regkeys')
 
 const registry = new RegKeys('HKLM/Software')
