@@ -68,3 +68,5 @@ typings/
 
 # TypeScript types
 /types
+
+dist/
