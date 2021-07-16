@@ -6,45 +6,59 @@ const chai = require('chai').assert
  */
 
 describe('examples', () => {
-  it('should return HKEY_LOCAL_MACHINE\\Software', () => {
+  it('1. should return HKEY_LOCAL_MACHINE\\Software', () => {
     const registry = new RegKeys('HKLM/Software')
 
     chai.equal(registry.query, 'HKEY_LOCAL_MACHINE\\Software')
   })
 
-  it('keys array should not be empty', () => {
+  it('2. keys array should not be empty', () => {
     const registry = new RegKeys('HKCR')
     const keys = registry.get()
 
     chai.isNotEmpty(keys)
   })
 
-  it('should return true when checking whether the subkey "Microsoft" exists', () => {
+  it('3. should return true when checking whether the subkey "Microsoft" exists', () => {
     const registry = new RegKeys('HKLM/Software')
 
     chai.isTrue(registry.hasKey('Microsoft'))
   })
 
-  it('should return [true, true, true, true] when checking for Software keys', () => {
+  it('4. should return [true, true, true, true] when checking for Software keys', () => {
     const registry = new RegKeys('HKLM/Software')
 
-    chai.deepEqual(
-      registry.hasKeys(['Microsoft', 'Macromedia', 'Google', 'Adobe']),
-      [true, true, true, true]
-    )
+    chai.deepEqual(registry.hasKeys(['Microsoft', 'Classes', 'Policies']), [
+      true,
+      true,
+      true,
+    ])
   })
 
-  it('should return true & [true, true, true, true] when checking for Software keys', () => {
+  it('5. should return true & [true, true, true, true] when checking for Software keys', () => {
     const registry = new RegKeys('HKLM/Software')
 
     chai.isTrue(registry.hasKey('Microsoft'))
-    chai.deepEqual(
-      registry.hasKeys(['Microsoft', 'Macromedia', 'Google', 'Adobe']),
-      [true, true, true, true]
+    chai.deepEqual(registry.hasKeys(['Microsoft', 'Classes', 'Policies']), [
+      true,
+      true,
+      true,
+    ])
+  })
+
+  it('6. should return true when using a custom search predicate', () => {
+    const registry = new RegKeys('HKLM/Software')
+
+    // useful for custom search algorithms/behavior,
+    // like demonstrated here, case-insensitive partial search
+    chai.isTrue(
+      registry.searchFor('micro', (key, searchFor, i) => {
+        return key.toLowerCase().indexOf(searchFor.toLowerCase()) > -1
+      })
     )
   })
 
-  it('should return true when using the clear() method', () => {
+  it('7. should return true when using the clear() method', () => {
     const registry = new RegKeys('HKLM/Software')
 
     // fetch keys and cache them
