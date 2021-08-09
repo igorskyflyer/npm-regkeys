@@ -7,6 +7,12 @@ _Uses the **reg.exe** system executable._
 
 <h6>If you are looking for a cool implementation of this module, click <a href="https://github.com/igorskyflyer/npm-registry-apppaths">here</a>.</h6>
 
+<br>
+
+✨Since version `2.1.0` `RegKeys` is a hybrid module that supports both CommonJS (legacy) and ES modules, thanks to [Modern Module](https://github.com/igorskyflyer/npm-modern-module).
+
+<br>
+
 > ✨ Since `v.2.0.0` async methods are available as well.
 
 <p align="center">💻  💻  💻  💻</p>
