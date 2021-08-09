@@ -34,6 +34,7 @@ class RegKeys {
    */
   constructor(key) {
     this.query = expandHive(key)
+    /** @type {string[]} */
     this.keys = []
   }
 
@@ -88,6 +89,7 @@ class RegKeys {
           }
         }
 
+        // @ts-ignore
         this.keys = this.keys
           .map((key) => {
             if (key.indexOf(this.query) === 0) {
@@ -168,6 +170,7 @@ class RegKeys {
     }
 
     const count = list.length
+    /** @type {boolean[]} */
     const result = []
 
     if (count === 0) {
