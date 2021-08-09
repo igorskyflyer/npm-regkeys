@@ -1,4 +1,4 @@
-const RegKeys = require('../index')
+const RegKeys = require('../src/index.js')
 const chai = require('chai').assert
 
 /**
@@ -28,22 +28,14 @@ describe('examples', () => {
   it('4. should return [true, true, true, true] when checking for Software keys', () => {
     const registry = new RegKeys('HKLM/Software')
 
-    chai.deepEqual(registry.hasKeys(['Microsoft', 'Classes', 'Policies']), [
-      true,
-      true,
-      true,
-    ])
+    chai.deepEqual(registry.hasKeys(['Microsoft', 'Classes', 'Policies']), [true, true, true])
   })
 
   it('5. should return true & [true, true, true, true] when checking for Software keys', () => {
     const registry = new RegKeys('HKLM/Software')
 
     chai.isTrue(registry.hasKey('Microsoft'))
-    chai.deepEqual(registry.hasKeys(['Microsoft', 'Classes', 'Policies']), [
-      true,
-      true,
-      true,
-    ])
+    chai.deepEqual(registry.hasKeys(['Microsoft', 'Classes', 'Policies']), [true, true, true])
   })
 
   it('6. should return true when using a custom search predicate', () => {
