@@ -1,4 +1,4 @@
-const RegKeys = require('../index')
+const RegKeys = require('../src/index.js')
 const chai = require('chai').assert
 
 /**
