@@ -1,5 +1,3 @@
-'use strict'
-
 /**
  * RegKeys,
  *
@@ -11,8 +9,8 @@
  * Author: Igor Dimitrijević <igor.dvlpr@gmail.com>, 2021.
  */
 
-const spawnSync = require('child_process').spawnSync
-const os = require('os')
+import { spawnSync } from 'child_process'
+import { platform } from 'os'
 
 // custom type used for the searchFor() method
 /**
@@ -27,7 +25,7 @@ const os = require('os')
 /**
  * RegKeys class.
  */
-class RegKeys {
+export class RegKeys {
   /**
    * Creates a RegKeys object.
    * @param {string} key
@@ -383,7 +381,7 @@ function expandHive(key) {
  * @returns {boolean}
  */
 function isWindows() {
-  return os.platform() === 'win32'
+  return platform() === 'win32'
 }
 
 /**
@@ -412,5 +410,3 @@ function toQuoteOrNotToQuote(arg) {
 
   return ''
 }
-
-module.exports = RegKeys
