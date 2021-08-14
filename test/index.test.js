@@ -1,5 +1,5 @@
-const RegKeys = require('../src/index.js')
-const chai = require('chai').assert
+import { RegKeys } from '../src/index.js'
+import { assert as chai } from 'chai'
 
 /**
  * Be aware that even though I tried to make the tests use data that's available on all PCs, some tests might fail on your computer, due to different configuration, software installed, etc.
@@ -52,12 +52,7 @@ describe('get()', () => {
 
   // test for reading the registry keys - spaces in path
   it('7. should return a non-empty string[] when passing a valid (non-expanded) key with spaces in path', () => {
-    chai.isAbove(
-      new RegKeys(
-        'HKLM/SOFTWARE/Microsoft/Windows/CurrentVersion/App Paths'
-      ).get().length,
-      0
-    )
+    chai.isAbove(new RegKeys('HKLM/SOFTWARE/Microsoft/Windows/CurrentVersion/App Paths').get().length, 0)
   })
 
   // test for reading registry keys
@@ -73,18 +68,12 @@ describe('get()', () => {
 describe('hasKeys()', () => {
   // test for checking for registry keys
   it('9. should return [true, true] for the subkeys ["Software", "Hardware"], case-insensitive', () => {
-    chai.deepEqual(new RegKeys('HKLM').hasKeys(['Software', 'Hardware']), [
-      true,
-      true,
-    ])
+    chai.deepEqual(new RegKeys('HKLM').hasKeys(['Software', 'Hardware']), [true, true])
   })
 
   // test for checking for registry keys
   it('10. should return [false, true] for subkeys ["Software", "HARDWARE"], case-sensitive', () => {
-    chai.deepEqual(
-      new RegKeys('HKLM').hasKeys(['Software', 'HARDWARE'], true),
-      [false, true]
-    )
+    chai.deepEqual(new RegKeys('HKLM').hasKeys(['Software', 'HARDWARE'], true), [false, true])
   })
 })
 
