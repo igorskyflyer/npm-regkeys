@@ -1,5 +1,5 @@
-const RegKeys = require('../src/index.js')
-const chai = require('chai').assert
+import { RegKeys } from '../src/index.js'
+import { assert as chai } from 'chai'
 
 /**
  * Be aware that even though I tried to make the tests use data that's available on all PCs, some tests might fail on your computer, due to different configuration, software installed, etc.
@@ -53,10 +53,13 @@ describe('examples', () => {
   it('7. should return true when using the clear() method', () => {
     const registry = new RegKeys('HKLM/Software')
 
-    // fetch keys and cache them
-    let keys = registry.get()
-
+    // .
+    // .
+    // .
     // 🔮 do something with the registry ⭐
+    // .
+    // .
+    // .
 
     // clear the cached result
     registry.clear()
