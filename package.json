@@ -1,29 +1,26 @@
 {
 	"name": "@igor.dvlpr/regkeys",
-	"version": "2.2.0",
+	"version": "2.2.1",
 	"description": "📚 An NPM package for fetching Windows registry keys. 🗝",
 	"type": "module",
-	"engines": {
-		"node": ">=12.17"
-	},
 	"sideEffects": false,
 	"main": "./dist/compat/index.js",
 	"exports": {
 		".": {
 			"require": "./dist/compat/index.js",
-			"import": "./dist/module/index.js"
+			"import": "./src/index.js"
 		}
 	},
-	"module": "./dist/module/index.js",
+	"module": "./src/index.js",
 	"types": "./dist/types",
 	"files": [
+		"src",
 		"dist"
 	],
 	"scripts": {
-		"cjs": "tsc -m CommonJS -t ES5 --outDir ./dist/compat && hybridize --out ./dist/compat --module cjs --overwrite",
-		"esm": "tsc -m ES6 --outDir ./dist/module",
-		"dts": "tsc --d --emitDeclarationOnly --declarationDir ./dist/types",
-		"build": "npm run cjs && npm run esm && npm run dts",
+		"compat": "tsc -m CommonJS -t ES5 --outDir ./dist/compat && hybridize --out ./dist/compat --module cjs --overwrite",
+		"types": "tsc --d --emitDeclarationOnly --declarationDir ./dist/types",
+		"build": "npm run compat && npm run types",
 		"test": "mocha",
 		"pub": "npm test && npm run build && npm publish --access public"
 	},
