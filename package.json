@@ -1,6 +1,6 @@
 {
 	"name": "@igor.dvlpr/regkeys",
-	"version": "2.2.1",
+	"version": "2.2.2",
 	"description": "📚 An NPM package for fetching Windows registry keys. 🗝",
 	"type": "module",
 	"sideEffects": false,
