@@ -2,26 +2,19 @@
 	"name": "@igor.dvlpr/regkeys",
 	"version": "2.2.2",
 	"description": "📚 An NPM package for fetching Windows registry keys. 🗝",
-	"type": "module",
-	"sideEffects": false,
-	"main": "./dist/compat/index.js",
-	"exports": {
-		".": {
-			"require": "./dist/compat/index.js",
-			"import": "./src/index.js"
-		}
+	"engines": {
+		"node": ">=16.0"
 	},
-	"module": "./src/index.js",
-	"types": "./dist/types",
+	"types": "./dist/index.d.mts",
+	"main": "./dist/index.mjs",
+	"module": "./dist/index.mjs",
 	"files": [
-		"src",
 		"dist"
 	],
 	"scripts": {
-		"compat": "tsc -m CommonJS -t ES5 --outDir ./dist/compat && hybridize --out ./dist/compat --module cjs --overwrite",
-		"types": "tsc --d --emitDeclarationOnly --declarationDir ./dist/types",
-		"build": "npm run compat && npm run types",
-		"test": "mocha",
+		"build": "tsc",
+		"test": "vitest --run",
+		"debug": "vitest",
 		"pub": "npm test && npm run build && npm publish --access public"
 	},
 	"repository": {
