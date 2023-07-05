@@ -1,5 +1,5 @@
-import { RegKeys } from '../src/index.js'
-import { assert as chai } from 'chai'
+import { RegKeys } from '../src/index.mjs'
+import { assert, describe, it } from 'vitest'
 
 /**
  * Be aware that even though I tried to make the tests use data that's available on all PCs, some tests might fail on your computer, due to different configuration, software installed, etc.
@@ -9,33 +9,33 @@ describe('examples', () => {
   it('1. should return HKEY_LOCAL_MACHINE\\Software', () => {
     const registry = new RegKeys('HKLM/Software')
 
-    chai.equal(registry.query, 'HKEY_LOCAL_MACHINE\\Software')
+    assert.equal(registry.query, 'HKEY_LOCAL_MACHINE\\Software')
   })
 
   it('2. keys array should not be empty', () => {
     const registry = new RegKeys('HKCR')
     const keys = registry.get()
 
-    chai.isNotEmpty(keys)
+    assert.isNotEmpty(keys)
   })
 
   it('3. should return true when checking whether the subkey "Microsoft" exists', () => {
     const registry = new RegKeys('HKLM/Software')
 
-    chai.isTrue(registry.hasKey('Microsoft'))
+    assert.isTrue(registry.hasKey('Microsoft'))
   })
 
   it('4. should return [true, true, true, true] when checking for Software keys', () => {
     const registry = new RegKeys('HKLM/Software')
 
-    chai.deepEqual(registry.hasKeys(['Microsoft', 'Classes', 'Policies']), [true, true, true])
+    assert.deepEqual(registry.hasKeys(['Microsoft', 'Classes', 'Policies']), [true, true, true])
   })
 
   it('5. should return true & [true, true, true, true] when checking for Software keys', () => {
     const registry = new RegKeys('HKLM/Software')
 
-    chai.isTrue(registry.hasKey('Microsoft'))
-    chai.deepEqual(registry.hasKeys(['Microsoft', 'Classes', 'Policies']), [true, true, true])
+    assert.isTrue(registry.hasKey('Microsoft'))
+    assert.deepEqual(registry.hasKeys(['Microsoft', 'Classes', 'Policies']), [true, true, true])
   })
 
   it('6. should return true when using a custom search predicate', () => {
@@ -43,7 +43,7 @@ describe('examples', () => {
 
     // useful for custom search algorithms/behavior,
     // like demonstrated here, case-insensitive partial search
-    chai.isTrue(
+    assert.isTrue(
       registry.searchFor('micro', (key, searchFor, i) => {
         return key.toLowerCase().indexOf(searchFor.toLowerCase()) > -1
       })
@@ -64,11 +64,11 @@ describe('examples', () => {
     // clear the cached result
     registry.clear()
 
-    chai.isEmpty(registry.keys)
+    assert.isEmpty(registry.keys)
 
     // refetch (new) keys
     registry.get()
 
-    chai.isNotEmpty(registry.keys)
+    assert.isNotEmpty(registry.keys)
   })
 })
