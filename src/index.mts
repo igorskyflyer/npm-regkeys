@@ -1,3 +1,5 @@
+// Copyright: Igor Dimitrijević (@igorskyflyer)
+
 /**
  * RegKeys,
  *
@@ -9,8 +11,8 @@
  * Author: Igor Dimitrijević <igor.dvlpr@gmail.com>, 2021.
  */
 
-import { spawnSync } from 'child_process'
-import { platform } from 'os'
+import { spawnSync } from 'node:child_process'
+import { platform } from 'node:os'
 
 // custom type used for the searchFor() method
 /**
