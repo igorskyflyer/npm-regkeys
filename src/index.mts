@@ -13,26 +13,19 @@
 
 import { spawnSync } from 'node:child_process'
 import { platform } from 'node:os'
-
-// custom type used for the searchFor() method
-/**
- * @see searchFor
- * @callback SearchPredicate
- * @param {string} key
- * @param {string} searchFor
- * @param {number} index
- * @returns {boolean}
- */
+import type { SearchPredicate } from './SearchPredicate.mjs'
 
 /**
  * RegKeys class.
  */
 export class RegKeys {
+  query: string
+  keys: string[]
   /**
    * Creates a RegKeys object.
    * @param {string} key
    */
-  constructor(key) {
+  constructor(key: string) {
     this.query = expandHive(key)
     /** @type {string[]} */
     this.keys = []
@@ -53,7 +46,7 @@ export class RegKeys {
    * @throws Throws an error if the host machine is not running Windows OS.
    * @returns {string[]}
    */
-  get(forceRefresh = false) {
+  get(forceRefresh: boolean = false): string[] {
     if (!isWindows()) {
       throw new Error('This function only runs on Windows operating system.')
     }
@@ -89,12 +82,13 @@ export class RegKeys {
           }
         }
 
-        // @ts-ignore
         this.keys = this.keys
           .map((key) => {
             if (key.indexOf(this.query) === 0) {
               return key.replace(searchKey, '')
             }
+
+            return ''
           })
           .filter(Boolean)
       } else {
@@ -116,7 +110,7 @@ export class RegKeys {
    * @throws Throws an error if the host machine is not running Windows OS.
    * @returns {Promise<string[]>}
    */
-  async getAsync(forceRefresh = false) {
+  async getAsync(forceRefresh: boolean = false): Promise<string[]> {
     return this.get(forceRefresh)
   }
 
@@ -126,7 +120,7 @@ export class RegKeys {
    * @param {boolean} [caseSensitive=false]
    * @returns {boolean}
    */
-  hasKey(searchFor, caseSensitive = false) {
+  hasKey(searchFor: string, caseSensitive: boolean = false): boolean {
     if (!searchFor || typeof searchFor !== 'string' || searchFor.length === 0) {
       return false
     }
@@ -154,7 +148,7 @@ export class RegKeys {
    * @param {boolean} [caseSensitive=false]
    * @returns {Promise<boolean>}
    */
-  async hasKeyAsync(searchFor, caseSensitive = false) {
+  async hasKeyAsync(searchFor: string, caseSensitive: boolean = false): Promise<boolean> {
     return this.hasKey(searchFor, caseSensitive)
   }
 
@@ -164,14 +158,14 @@ export class RegKeys {
    * @param {boolean} [caseSensitive=false]
    * @returns {boolean[]}
    */
-  hasKeys(list, caseSensitive = false) {
+  hasKeys(list: string[], caseSensitive: boolean = false): boolean[] {
     if (!list || !(list instanceof Array)) {
       return []
     }
 
     const count = list.length
     /** @type {boolean[]} */
-    const result = []
+    const result: boolean[] = []
 
     if (count === 0) {
       return result
@@ -204,7 +198,7 @@ export class RegKeys {
    * @param {boolean} [caseSensitive=false]
    * @returns {Promise<boolean[]>}
    */
-  async hasKeysAsync(list, caseSensitive = false) {
+  async hasKeysAsync(list: string[], caseSensitive: boolean = false): Promise<boolean[]> {
     return this.hasKeys(list, caseSensitive)
   }
 
@@ -216,7 +210,7 @@ export class RegKeys {
    * @see hasKey
    * @see hasKeys
    */
-  has(value, caseSensitive = false) {
+  has(value: string | string[], caseSensitive = false): boolean | boolean[] {
     if (!value) {
       return false
     }
@@ -238,7 +232,7 @@ export class RegKeys {
    * @see hasKey
    * @see hasKeys
    */
-  async hasAsync(value, caseSensitive = false) {
+  async hasAsync(value: string | string[], caseSensitive = false): Promise<boolean | boolean[]> {
     return this.has(value, caseSensitive)
   }
 
@@ -249,7 +243,7 @@ export class RegKeys {
    * @param {SearchPredicate} predicate
    * @returns {boolean} it returns true upon finding the first match or false if no match is found or any of the both required parameters aren't set.
    */
-  searchFor(value, predicate) {
+  searchFor(value: string, predicate: SearchPredicate): boolean {
     if (!value || typeof predicate !== 'function') {
       return false
     }
@@ -276,7 +270,7 @@ export class RegKeys {
    * @param {SearchPredicate} predicate
    * @returns {Promise<boolean>} it returns true upon finding the first match or false if no match is found or any of the both required parameters aren't set.
    */
-  async searchForAsync(value, predicate) {
+  async searchForAsync(value: string, predicate: SearchPredicate): Promise<boolean> {
     return this.searchFor(value, predicate)
   }
 
@@ -284,7 +278,7 @@ export class RegKeys {
    * Clears the cached result, if any.
    * @returns {void}
    */
-  clear() {
+  clear(): void {
     this.keys = []
   }
 }
@@ -295,7 +289,7 @@ export class RegKeys {
  * @param {*} key The key to process.
  * @returns {string}
  */
-function extractHive(key) {
+function extractHive(key: any): string {
   if (key && typeof key === 'string') {
     // convert to uppercase for consistency,
     // and to avoid case mismatching
@@ -323,7 +317,7 @@ function extractHive(key) {
  * @param {string} key The key to expand.
  * @returns {string} The expanded hive key.
  */
-function expandHive(key) {
+function expandHive(key: string): string {
   if (typeof key === 'string') {
     const hive = extractHive(key)
     let result = key
@@ -382,7 +376,7 @@ function expandHive(key) {
  * Returns a Boolean whether we are running on a Windows machine.
  * @returns {boolean}
  */
-function isWindows() {
+function isWindows(): boolean {
   return platform() === 'win32'
 }
 
@@ -393,7 +387,7 @@ function isWindows() {
  * @param {string} arg
  * @returns {string}
  */
-function toQuoteOrNotToQuote(arg) {
+function toQuoteOrNotToQuote(arg: string): string {
   if (arg) {
     const count = arg.length
 
