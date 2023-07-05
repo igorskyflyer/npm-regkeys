@@ -32,8 +32,9 @@
 		"utility",
 		"igorskyflyer"
 	],
-	"author": "Igor Dimitrijević",
+	"author": "Igor Dimitrijević <igor.dvlpr@gmail.com> (https://github.com/igorskyflyer)",
 	"license": "MIT",
+	"funding": "https://ko-fi.com/igorskyflyer",
 	"bugs": {
 		"url": "https://github.com/igorskyflyer/npm-regkeys/issues"
 	},
