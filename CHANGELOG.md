@@ -1,4 +1,19 @@
-## RegKeys
+## 📒 Changelog
+
+### of [@igor.dvlpr/regkeys](https://github.com/igorskyflyer/npm-regkeys)
+
+<br>
+
+#### 3.0.0
+
+_07-Jul-2023_
+
+- feat: migrate to ESM-only
+- dev: migrate to TypeScript
+- dev: replace Mocha with Vitest
+
+<br>
+<br>
 
 #### 2.0.0
 
