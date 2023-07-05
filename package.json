@@ -29,7 +29,8 @@
 		"read",
 		"system",
 		"os",
-		"utility"
+		"utility",
+		"igorskyflyer"
 	],
 	"author": "Igor Dimitrijević",
 	"license": "MIT",
