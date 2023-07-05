@@ -40,12 +40,8 @@
 	},
 	"homepage": "https://github.com/igorskyflyer/npm-regkeys#readme",
 	"devDependencies": {
-		"@igor.dvlpr/hybridize": "^1.0.0",
-		"@types/chai": "^4.3.1",
-		"@types/mocha": "^9.1.1",
-		"@types/node": "^12.17.0",
-		"chai": "^4.3.6",
-		"mocha": "^10.0.0",
-		"typescript": "^4.7.4"
+		"@types/node": "^16.0.0",
+		"typescript": "^5.1.6",
+		"vitest": "^0.32.4"
 	}
 }
