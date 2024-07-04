@@ -20,5 +20,5 @@
 
 > _Advisory_: introduces **breaking** changes!
 
-- **🪅 feat**: added the searchFor() method that provides a way to do keys-checking using a custom predicate function for advanced key searching.
+- **🪅 feat**: added the searchFor() method that provides a way to do keys-checking using a custom predicate function for advanced key searching,
 - **💻 dev**: modernized the code, added async methods.
