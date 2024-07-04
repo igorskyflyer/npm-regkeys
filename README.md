@@ -52,7 +52,7 @@ npm i "@igor.dvlpr/regkeys"
 
 ## 🤹🏼 API
 
-```
+```ts
 constructor(key): RegKeys
 ```
 
