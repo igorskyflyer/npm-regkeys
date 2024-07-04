@@ -1,9 +1,10 @@
 {
 	"name": "@igor.dvlpr/regkeys",
-	"version": "2.2.2",
+	"version": "3.0.0",
 	"description": "📚 An NPM package for fetching Windows registry keys. 🗝",
+	"sideEffects": false,
 	"engines": {
-		"node": ">=16.0"
+		"node": ">=20.0"
 	},
 	"types": "./dist/index.d.mts",
 	"main": "./dist/index.mjs",
@@ -15,34 +16,34 @@
 		"build": "tsc",
 		"test": "vitest --run",
 		"debug": "vitest",
-		"coverage": "vitest run --coverage",
 		"pub": "npm test && npm run build && npm publish --access public"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/igorskyflyer/npm-regkeys.git"
 	},
 	"keywords": [
 		"registry",
 		"windows",
 		"fetch",
-		"igordvlpr",
 		"read",
 		"system",
 		"os",
 		"utility",
-		"igorskyflyer"
+		"igorskyflyer",
+		"igor.dvlpr"
 	],
-	"author": "Igor Dimitrijević <igor.dvlpr@gmail.com> (https://github.com/igorskyflyer)",
 	"license": "MIT",
+	"author": "Igor Dimitrijević <igor.dvlpr@gmail.com> (https://github.com/igorskyflyer)",
 	"funding": "https://ko-fi.com/igorskyflyer",
+	"homepage": "https://github.com/igorskyflyer/npm-regkeys",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/igorskyflyer/npm-regkeys.git"
+	},
 	"bugs": {
 		"url": "https://github.com/igorskyflyer/npm-regkeys/issues"
 	},
-	"homepage": "https://github.com/igorskyflyer/npm-regkeys#readme",
 	"devDependencies": {
-		"@types/node": "^16.0.0",
-		"typescript": "^5.1.6",
-		"vitest": "^0.32.4"
+		"@biomejs/biome": "^1.8.3",
+		"@types/node": "^20.14.9",
+		"typescript": "^5.5.3",
+		"vitest": "^1.6.0"
 	}
 }
