@@ -1,7 +1,38 @@
-<p align="center"><img src="https://raw.githubusercontent.com/igorskyflyer/npm-regkeys/master/assets/RegKeys.png" width="170" height="170"></p>
+# RegKeys
 
-<h3>RegKeys,</h3>
-<h6>an NPM package for querying Windows registry keys.</h6>
+<br>
+
+<p align="center"><img src="https://raw.githubusercontent.com/igorskyflyer/npm-regkeys/main/assets/RegKeys.png" width="170" height="170"></p>
+
+<br>
+
+📚 An NPM package for fetching Windows registry keys. 🗝
+
+<br>
+<br>
+
+<div align="center">
+	<blockquote>
+		<br>
+		<h4>💖 Support further development</h4>
+		<span>I work hard for every project, including this one and your support means a lot to me!
+		<br>
+		Consider buying me a coffee. ☕
+		<br>
+		<strong>Thank you for supporting my efforts! 🙏😊</strong></span>
+		<br>
+		<br>
+		<a href="https://ko-fi.com/igorskyflyer" target="_blank"><img src="https://raw.githubusercontent.com/igorskyflyer/igorskyflyer/main/assets/ko-fi.png" alt="Donate to igorskyflyer" width="150"></a>
+		<br>
+		<br>
+		<a href="https://github.com/igorskyflyer"><em>@igorskyflyer</em></a>
+		<br>
+		<br>
+		<br>
+	</blockquote>
+</div>
+
+<br>
 
 _Uses the **reg.exe** system executable._
 
@@ -9,15 +40,17 @@ _Uses the **reg.exe** system executable._
 
 <br>
 
-✨Since version `2.1.0` `RegKeys` is a hybrid module that supports both CommonJS (legacy) and ES modules, thanks to [Modern Module](https://github.com/igorskyflyer/npm-modern-module).
+## 🕵🏼 Usage
+
+Install it by executing:
+
+```shell
+npm i "@igor.dvlpr/regkeys"
+```
 
 <br>
 
-> ✨ Since `v.2.0.0` async methods are available as well.
-
-<p align="center">💻  💻  💻  💻</p>
-
-#### API
+## 🤹🏼 API
 
 ```
 constructor(key): RegKeys
@@ -42,8 +75,8 @@ returns the **RegKeys** object.
 
 ##### Example
 
-```js
-const RegKeys = require('@igor.dvlpr/regkeys')
+```ts
+import { RegKeys } from '@igor.dvlpr/regkeys'
 
 // for your convenience, you can use forward slashes,
 // since internally Windows only supports back slashes,
@@ -52,19 +85,19 @@ const RegKeys = require('@igor.dvlpr/regkeys')
 // so...
 ```
 
-```js
+```ts
 // 😒
-const registry = new RegKeys('HKLM\\Software')
+const registry: RegKeys = new RegKeys('HKLM\\Software')
 
 // is the same as
 
 // 🥳🎊
-const registry = new RegKeys('HKLM/Software')
+const registry: RegKeys = new RegKeys('HKLM/Software')
 ```
 
-<p align="center">💻  💻  💻  💻</p>
+<br>
 
-```js
+```ts
 get(forceRefresh: boolean = false): string[]
 ```
 
@@ -76,24 +109,25 @@ returns a **string[]**.
 
 ##### Example
 
-```js
-const RegKeys = require('@igor.dvlpr/regkeys')
+```ts
 
-const registry = new RegKeys('HKCR')
-const keys = registry.get()
+import { RegKeys } from '@igor.dvlpr/regkeys'
+
+const registry: RegKeys = new RegKeys('HKCR')
+const keys: string[] = registry.get()
 
 // do something with the keys,
 // it's your fate, unlock it 😛
-keys.forEach((key) => {
+keys.forEach((key: string) => {
   console.log(key)
 })
 ```
 
-<p align="center">💻  💻  💻  💻</p>
+<br>
 
 <a name="hasKey"></a>
 
-```js
+```ts
 hasKey(searchFor: string, caseSensitive: boolean = false): boolean
 ```
 
@@ -108,10 +142,10 @@ returns a **boolean**.
 
 ##### Example
 
-```js
-const RegKeys = require('@igor.dvlpr/regkeys')
+```ts
+import { RegKeys } from '@igor.dvlpr/regkeys'
 
-const registry = new RegKeys('HKLM/Software')
+const registry: RegKeys = new RegKeys('HKLM/Software')
 
 // let's see if we have any
 // Microsoft software on our Windows PC
@@ -121,9 +155,9 @@ console.log(registry.hasKey('Microsoft'))
 
 <a name="hasKeys"></a>
 
-<p align="center">💻  💻  💻  💻</p>
+<br>
 
-```js
+```ts
 hasKeys(searchFor: string[], caseSensitive: boolean = false): boolean
 ```
 
@@ -138,17 +172,17 @@ returns a **boolean[]**.
 
 ##### Example
 
-```js
-const RegKeys = require('@igor.dvlpr/regkeys')
+```ts
+import { RegKeys } from '@igor.dvlpr/regkeys'
 
-const registry = new RegKeys('HKLM/Software')
+const registry: RegKeys = new RegKeys('HKLM/Software')
 
 console.log(registry.hasKeys(['Microsoft', 'Macromedia', 'Google', 'Adobe']))
 ```
 
-<p align="center">💻  💻  💻  💻</p>
+<br>
 
-```js
+```ts
 has(value: string|string[], caseSensitive: boolean = false): boolean|boolean[]
 ```
 
@@ -163,18 +197,18 @@ returns a **boolean|boolean[]**.
 
 ##### Example
 
-```js
-const RegKeys = require('@igor.dvlpr/regkeys')
+```ts
+import { RegKeys } from '@igor.dvlpr/regkeys'
 
-const registry = new RegKeys('HKLM/Software')
+const registry: RegKeys = new RegKeys('HKLM/Software')
 
 console.log(registry.has('Microsoft'))
 console.log(registry.has(['Microsoft', 'Macromedia', 'Google', 'Adobe']))
 ```
 
-<p align="center">💻  💻  💻  💻</p>
+<br>
 
-```js
+```ts
 searchFor(value: string, predicate: SearchPredicate): boolean
 ```
 
@@ -189,23 +223,23 @@ returns a **boolean**, i.e. true upon finding the first match or false if no mat
 
 ##### Example
 
-```js
-const RegKeys = require('@igor.dvlpr/regkeys')
+```ts
+import { RegKeys } from '@igor.dvlpr/regkeys'
 
-const registry = new RegKeys('HKLM/Software')
+const registry: RegKeys = new RegKeys('HKLM/Software')
 
 // useful for custom search algorithms/behavior,
 // like demonstrated here, case-insensitive partial search
 console.log(
-  registry.searchFor('micro', (key, searchFor, i) => {
+  registry.searchFor('micro', (key: string, searchFor: string, i: number) => {
     return key.toLowerCase().indexOf(searchFor.toLowerCase()) > -1
   })
 )
 ```
 
-<p align="center">💻  💻  💻  💻</p>
+<br>
 
-```js
+```ts
 clear(): void
 ```
 
@@ -215,10 +249,10 @@ returns a **void**.
 
 ##### Example
 
-```js
-const RegKeys = require('@igor.dvlpr/regkeys')
+```ts
+import { RegKeys } from '@igor.dvlpr/regkeys'
 
-const registry = new RegKeys('HKLM/Software')
+const registry: RegKeys = new RegKeys('HKLM/Software')
 
 // fetch keys and cache them
 let keys = registry.get()
@@ -234,6 +268,39 @@ keys = registry.get()
 console.log(keys)
 ```
 
-<p align="center">💻  💻  💻  💻</p>
+---
 
-> Don't forget to go through the tests too, they offer additional insight. 📚
+## 🪪 License
+
+Licensed under the MIT license which is available here, [MIT license](https://github.com/igorskyflyer/npm-regkeys/blob/main/LICENSE).
+
+---
+
+## 🧬 Related
+
+[]()
+
+> __
+
+[]()
+
+> __
+
+[]()
+
+> __
+
+[]()
+
+> __
+
+[]()
+
+> __
+
+<br>
+<br>
+
+>
+> Provided by **Igor Dimitrijević** ([*@igorskyflyer*](https://github.com/igorskyflyer/)).
+>
