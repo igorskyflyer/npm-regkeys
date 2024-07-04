@@ -21,7 +21,8 @@
 	"linter": {
 		"rules": {
 			"style": {
-				"noInferrableTypes": "off"
+				"noInferrableTypes": "off",
+				"noParameterAssign": "off"
 			},
 			"suspicious": {
 				"noExplicitAny": "off"
