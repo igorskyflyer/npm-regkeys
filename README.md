@@ -1,14 +1,14 @@
 # RegKeys
 
-<br>
-
 <p align="center"><img src="https://raw.githubusercontent.com/igorskyflyer/npm-regkeys/main/assets/RegKeys.png" width="170" height="170"></p>
 
-<br>
+<h3>RegKeys,</h3>
+<h6>an NPM package for querying Windows registry keys.</h6>
 
-📚 An NPM package for fetching Windows registry keys. 🗝
+_Uses the **reg.exe** system executable._
 
-<br>
+<h6>If you are looking for a cool implementation of this module, click <a href="https://github.com/igorskyflyer/npm-registry-apppaths">here</a>.</h6>
+
 <br>
 
 <div align="center">
