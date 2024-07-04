@@ -59,7 +59,7 @@ constructor(key): RegKeys
 > Creates the RegKeys object.
 > Do **not** forget to set the **_key_** parameter.
 
-- **key**: _string_, the key you later want to manipulate with, i.e. read keys, check for children keys, etc.,
+- **key**: `string`, the key you later want to manipulate with, i.e. read keys, check for children keys, etc.,
 
 > **key** can either be an expanded or a non-expanded key, i.e.:
 
@@ -72,6 +72,8 @@ constructor(key): RegKeys
 |     HKCC     | HKEY_CURRENT_CONFIGURATION |
 
 returns the **RegKeys** object.
+
+<br>
 
 ##### Example
 
@@ -103,14 +105,15 @@ get(forceRefresh: boolean = false): string[]
 
 > Gets the keys for the given root key.
 
-- **forceRefresh**: _boolean_, indicates whether the registry should be queryied again since the result of this method is cached internally, for performance,
+- **forceRefresh**: _boolean_, indicates whether the registry should be queried again since the result of this method is cached internally, for performance,
 
 returns a **string[]**.
+
+<br>
 
 ##### Example
 
 ```ts
-
 import { RegKeys } from '@igor.dvlpr/regkeys'
 
 const registry: RegKeys = new RegKeys('HKCR')
@@ -139,6 +142,8 @@ hasKey(searchFor: string, caseSensitive: boolean = false): boolean
 returns a **boolean**.
 
 > **NOTE**: it will auto-fetch the keys if the internal cache is empty = you didn't call **get()** before calling this method.
+
+<br>
 
 ##### Example
 
@@ -170,6 +175,8 @@ returns a **boolean[]**.
 
 > **NOTE**: it will auto-fetch the keys if the internal cache is empty = you didn't call **get()** before calling this method.
 
+<br>
+
 ##### Example
 
 ```ts
@@ -194,6 +201,8 @@ has(value: string|string[], caseSensitive: boolean = false): boolean|boolean[]
 returns a **boolean|boolean[]**.
 
 > **NOTE**: it will auto-fetch the keys if the internal cache is empty = you didn't call **get()** before calling this method.
+
+<br>
 
 ##### Example
 
@@ -221,6 +230,8 @@ returns a **boolean**, i.e. true upon finding the first match or false if no mat
 
 > **NOTE**: it will auto-fetch the keys if the internal cache is empty = you didn't call **get()** before calling this method.
 
+<br>
+
 ##### Example
 
 ```ts
@@ -246,6 +257,8 @@ clear(): void
 > Clears the cached result, if any,
 
 returns a **void**.
+
+<br>
 
 ##### Example
 
@@ -278,25 +291,25 @@ Licensed under the MIT license which is available here, [MIT license](https://gi
 
 ## 🧬 Related
 
-[]()
+[@igor.dvlpr/is-rootdir](https://www.npmjs.com/package/@igor.dvlpr/is-rootdir)
 
-> __
+> _🔼 Provides a way to check if the given path is the root drive/directory. ⛔_
 
-[]()
+[@igor.dvlpr/mp3size](https://www.npmjs.com/package/@igor.dvlpr/mp3size)
 
-> __
+> _🧮 Calculates an estimated file size of Mp3 files. 🎶_
 
-[]()
+[@igor.dvlpr/aria](https://www.npmjs.com/package/@igor.dvlpr/aria)
 
-> __
+> _🧬 Meet Aria, an efficient Adblock filter list compiler, with many features that make your maintenance of Adblock filter lists a breeze! 🗡_
 
-[]()
+[@igor.dvlpr/keppo](https://www.npmjs.com/package/@igor.dvlpr/keppo)
 
-> __
+> _🎡 Parse, manage, compare and output SemVer-compatible version numbers. 🛡_
 
-[]()
+[@igor.dvlpr/simple-exec](https://www.npmjs.com/package/@igor.dvlpr/simple-exec)
 
-> __
+> _🕺 Command. Execution. Made. Simple. ▶_
 
 <br>
 <br>
