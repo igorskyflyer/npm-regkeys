@@ -1,22 +1,25 @@
 ## 📒 Changelog
 
-### of [@igor.dvlpr/regkeys](https://github.com/igorskyflyer/npm-regkeys)
+### of [@igorskyflyer/regkeys](https://github.com/igorskyflyer/npm-regkeys)
 
 <br>
 
-## v3.0.0
+## v3.0.1 (*21-Aug-2025*)
 
-<p align="right"><em>05-Jul-2024</em></p>
+- **✅ fix**: improve RegExp performance
+- **✅ fix**: fix a security vulnerability concerning arguments passing
+- **💻 dev**: remove unused function
+
+<br>
+
+## v3.0.0 (*05-Jul-2024*)
 
 - **💻 dev**: move to ESM-only,
 - **💻 dev**: use real JS hidden fields
 
 <br>
-<br>
 
-## v2.0.0
-
-<p align="right"><em>29-Nov-2020</em></p>
+## v2.0.0 (*29-Nov-2020*)
 
 > _Advisory_: introduces **breaking** changes!
 
