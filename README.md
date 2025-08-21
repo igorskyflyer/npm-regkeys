@@ -1,43 +1,45 @@
-# RegKeys
-
-<p align="center"><img src="https://raw.githubusercontent.com/igorskyflyer/npm-regkeys/main/assets/RegKeys.png" width="170" height="170"></p>
-
-<h3>RegKeys,</h3>
-<h6>an NPM package for querying Windows registry keys.</h6>
-
-_Uses the **reg.exe** system executable._
-
-<h6>If you are looking for a cool implementation of this module, click <a href="https://github.com/igorskyflyer/npm-registry-apppaths">here</a>.</h6>
-
-<br>
-
 <div align="center">
-	<blockquote>
-		<br>
-		<h4>💖 Support further development</h4>
-		<span>I work hard for every project, including this one and your support means a lot to me!
-		<br>
-		Consider buying me a coffee. ☕
-		<br>
-		<strong>Thank you for supporting my efforts! 🙏😊</strong></span>
-		<br>
-		<br>
-		<a href="https://ko-fi.com/igorskyflyer" target="_blank"><img src="https://raw.githubusercontent.com/igorskyflyer/igorskyflyer/main/assets/ko-fi.png" alt="Donate to igorskyflyer" width="150"></a>
-		<br>
-		<br>
-		<a href="https://github.com/igorskyflyer"><em>@igorskyflyer</em></a>
-		<br>
-		<br>
-		<br>
-	</blockquote>
+  <img src="https://raw.githubusercontent.com/igorskyflyer/npm-regkeys/main/assets/regkeys.png" alt="Icon of RegKeys" width="256" height="256">
+<h1 align="center">RegKeys</h1>
 </div>
 
 <br>
 
-_Uses the **reg.exe** system executable._
+<div align="center">
+  📚 A package for fetching Windows registry keys. 🗝
+</div>
 
-<h6>If you are looking for a cool implementation of this module, click <a href="https://github.com/igorskyflyer/npm-registry-apppaths">here</a>.</h6>
+<br>
+<br>
 
+## 📃 Table of Contents
+
+- [Features](#-features)
+- [Usage](#-usage)
+- [API](#️-api)
+- [Changelog](#-changelog)
+- [Support](#-support)
+- [License](#-license)
+- [Related](#-related)
+- [Author](#-author)
+
+<br>
+<br>
+
+## 🤖 Features
+
+- 🔍 Enumerates Windows Registry subkeys via the native reg.exe command
+- 🗂 Automatically expands short hive names to their full forms
+- ⚡ Supports both synchronous and asynchronous usage patterns
+- 🧠 Caches retrieved keys for faster repeated lookups, with optional refresh
+- ✅ Checks for the existence of single or multiple registry keys
+- 🎯 Allows custom predicate‑based key matching
+- 🔡 Offers optional case‑sensitive matching
+- ♻️ Provides a way to clear cached results
+- 🖥 Ensures execution only on Windows systems
+- 🔧 Includes helper utilities for hive extraction, expansion, and OS detection
+
+<br>
 <br>
 
 ## 🕵🏼 Usage
@@ -45,12 +47,13 @@ _Uses the **reg.exe** system executable._
 Install it by executing:
 
 ```shell
-npm i "@igor.dvlpr/regkeys"
+npm i @igorskyflyer/regkeys
 ```
 
 <br>
+<br>
 
-## 🤹🏼 API
+## 🤹🏼‍♂️ API
 
 ```ts
 constructor(key): RegKeys
@@ -78,7 +81,7 @@ returns the **RegKeys** object.
 ##### Example
 
 ```ts
-import { RegKeys } from '@igor.dvlpr/regkeys'
+import { RegKeys } from '@igorskyflyer/regkeys'
 
 // for your convenience, you can use forward slashes,
 // since internally Windows only supports back slashes,
@@ -114,7 +117,7 @@ returns a **string[]**.
 ##### Example
 
 ```ts
-import { RegKeys } from '@igor.dvlpr/regkeys'
+import { RegKeys } from '@igorskyflyer/regkeys'
 
 const registry: RegKeys = new RegKeys('HKCR')
 const keys: string[] = registry.get()
@@ -148,7 +151,7 @@ returns a **boolean**.
 ##### Example
 
 ```ts
-import { RegKeys } from '@igor.dvlpr/regkeys'
+import { RegKeys } from '@igorskyflyer/regkeys'
 
 const registry: RegKeys = new RegKeys('HKLM/Software')
 
@@ -180,7 +183,7 @@ returns a **boolean[]**.
 ##### Example
 
 ```ts
-import { RegKeys } from '@igor.dvlpr/regkeys'
+import { RegKeys } from '@igorskyflyer/regkeys'
 
 const registry: RegKeys = new RegKeys('HKLM/Software')
 
@@ -207,7 +210,7 @@ returns a **boolean|boolean[]**.
 ##### Example
 
 ```ts
-import { RegKeys } from '@igor.dvlpr/regkeys'
+import { RegKeys } from '@igorskyflyer/regkeys'
 
 const registry: RegKeys = new RegKeys('HKLM/Software')
 
@@ -235,7 +238,7 @@ returns a **boolean**, i.e. true upon finding the first match or false if no mat
 ##### Example
 
 ```ts
-import { RegKeys } from '@igor.dvlpr/regkeys'
+import { RegKeys } from '@igorskyflyer/regkeys'
 
 const registry: RegKeys = new RegKeys('HKLM/Software')
 
@@ -263,7 +266,7 @@ returns a **void**.
 ##### Example
 
 ```ts
-import { RegKeys } from '@igor.dvlpr/regkeys'
+import { RegKeys } from '@igorskyflyer/regkeys'
 
 const registry: RegKeys = new RegKeys('HKLM/Software')
 
@@ -281,39 +284,66 @@ keys = registry.get()
 console.log(keys)
 ```
 
----
+<br>
+<br>
+
+## 📝 Changelog
+
+📑 The changelog is available here, [CHANGELOG.md](https://github.com/igorskyflyer/npm-regkeys/blob/main/CHANGELOG.md).
+
+<br>
+<br>
 
 ## 🪪 License
 
-Licensed under the MIT license which is available here, [MIT license](https://github.com/igorskyflyer/npm-regkeys/blob/main/LICENSE).
+Licensed under the MIT license which is available here, [MIT license](https://github.com/igorskyflyer/npm-regkeys/blob/main/LICENSE.txt).
 
----
+<br>
+<br>
+
+## 💖 Support
+
+<div align="center">
+  I work hard for every project, including this one and your support means a lot to me!
+  <br>
+  Consider buying me a coffee. ☕
+  <br>
+  <br>
+  <a href="https://ko-fi.com/igorskyflyer" target="_blank"><img src="https://raw.githubusercontent.com/igorskyflyer/igorskyflyer/main/assets/ko-fi.png" alt="Donate to igorskyflyer" width="180" height="46"></a>
+  <br>
+  <br>
+  <em>Thank you for supporting my efforts!</em> 🙏😊
+</div>
+
+<br>
+<br>
 
 ## 🧬 Related
 
-[@igor.dvlpr/is-rootdir](https://www.npmjs.com/package/@igor.dvlpr/is-rootdir)
+[@igorskyflyer/is-rootdir](https://www.npmjs.com/package/@igorskyflyer/is-rootdir)
 
 > _🔼 Provides a way to check if the given path is the root drive/directory. ⛔_
 
-[@igor.dvlpr/mp3size](https://www.npmjs.com/package/@igor.dvlpr/mp3size)
+[@igorskyflyer/mp3size](https://www.npmjs.com/package/@igorskyflyer/mp3size)
 
 > _🧮 Calculates an estimated file size of Mp3 files. 🎶_
 
-[@igor.dvlpr/aria](https://www.npmjs.com/package/@igor.dvlpr/aria)
+[@igorskyflyer/aria](https://www.npmjs.com/package/@igorskyflyer/aria)
 
 > _🧬 Meet Aria, an efficient Adblock filter list compiler, with many features that make your maintenance of Adblock filter lists a breeze! 🗡_
 
-[@igor.dvlpr/keppo](https://www.npmjs.com/package/@igor.dvlpr/keppo)
+[@igorskyflyer/keppo](https://www.npmjs.com/package/@igorskyflyer/keppo)
 
 > _🎡 Parse, manage, compare and output SemVer-compatible version numbers. 🛡_
 
-[@igor.dvlpr/simple-exec](https://www.npmjs.com/package/@igor.dvlpr/simple-exec)
+[@igorskyflyer/simple-exec](https://www.npmjs.com/package/@igorskyflyer/simple-exec)
 
 > _🕺 Command. Execution. Made. Simple. ▶_
 
+
+<br>
 <br>
 <br>
 
->
-> Provided by **Igor Dimitrijević** ([*@igorskyflyer*](https://github.com/igorskyflyer/)).
->
+## 👨🏻‍💻 Author
+Created by **Igor Dimitrijević** ([*@igorskyflyer*](https://github.com/igorskyflyer/)).
