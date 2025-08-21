@@ -320,23 +320,23 @@ Licensed under the MIT license which is available here, [MIT license](https://gi
 
 ## 🧬 Related
 
-[@igorskyflyer/is-rootdir](https://www.npmjs.com/package/@igorskyflyer/is-rootdir)
+[@igor.dvlpr/is-rootdir](https://www.npmjs.com/package/@igor.dvlpr/is-rootdir)
 
 > _🔼 Provides a way to check if the given path is the root drive/directory. ⛔_
 
-[@igorskyflyer/mp3size](https://www.npmjs.com/package/@igorskyflyer/mp3size)
+[@igor.dvlpr/mp3size](https://www.npmjs.com/package/@igor.dvlpr/mp3size)
 
 > _🧮 Calculates an estimated file size of Mp3 files. 🎶_
 
-[@igorskyflyer/aria](https://www.npmjs.com/package/@igorskyflyer/aria)
+[@igor.dvlpr/aria](https://www.npmjs.com/package/@igor.dvlpr/aria)
 
 > _🧬 Meet Aria, an efficient Adblock filter list compiler, with many features that make your maintenance of Adblock filter lists a breeze! 🗡_
 
-[@igorskyflyer/keppo](https://www.npmjs.com/package/@igorskyflyer/keppo)
+[@igor.dvlpr/keppo](https://www.npmjs.com/package/@igor.dvlpr/keppo)
 
 > _🎡 Parse, manage, compare and output SemVer-compatible version numbers. 🛡_
 
-[@igorskyflyer/simple-exec](https://www.npmjs.com/package/@igorskyflyer/simple-exec)
+[@igor.dvlpr/simple-exec](https://www.npmjs.com/package/@igor.dvlpr/simple-exec)
 
 > _🕺 Command. Execution. Made. Simple. ▶_
 
