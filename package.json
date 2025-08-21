@@ -1,6 +1,6 @@
 {
     "name": "@igorskyflyer/regkeys",
-    "version": "3.0.1-alpha.0",
+    "version": "3.0.1",
     "description": "📚 A package for fetching Windows registry keys. 🗝",
     "sideEffects": false,
     "engines": {
