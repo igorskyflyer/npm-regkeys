@@ -1,49 +1,52 @@
 {
-	"name": "@igor.dvlpr/regkeys",
-	"version": "3.0.0",
-	"description": "📚 An NPM package for fetching Windows registry keys. 🗝",
-	"sideEffects": false,
-	"engines": {
-		"node": ">=20.0"
-	},
-	"types": "./dist/index.d.mts",
-	"main": "./dist/index.mjs",
-	"module": "./dist/index.mjs",
-	"files": [
-		"dist"
-	],
-	"scripts": {
-		"build": "tsc",
-		"test": "vitest --run",
-		"debug": "vitest",
-		"pub": "npm test && npm run build && npm publish --access public"
-	},
-	"keywords": [
-		"registry",
-		"windows",
-		"fetch",
-		"read",
-		"system",
-		"os",
-		"utility",
-		"igorskyflyer",
-		"igor.dvlpr"
-	],
-	"license": "MIT",
-	"author": "Igor Dimitrijević <igor.dvlpr@gmail.com> (https://github.com/igorskyflyer)",
-	"funding": "https://ko-fi.com/igorskyflyer",
-	"homepage": "https://github.com/igorskyflyer/npm-regkeys",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/igorskyflyer/npm-regkeys.git"
-	},
-	"bugs": {
-		"url": "https://github.com/igorskyflyer/npm-regkeys/issues"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "^1.8.3",
-		"@types/node": "^20.14.9",
-		"typescript": "^5.5.3",
-		"vitest": "^1.6.0"
-	}
+    "name": "@igorskyflyer/regkeys",
+    "version": "3.0.1-alpha.0",
+    "description": "📚 A package for fetching Windows registry keys. 🗝",
+    "sideEffects": false,
+    "engines": {
+        "node": ">=22.0"
+    },
+    "type": "module",
+    "types": "./dist/index.d.ts",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "files": [
+        "dist/*.js",
+        "dist/*.d.ts"
+    ],
+    "publishConfig": {
+        "access": "public"
+    },
+    "scripts": {
+        "build": "tsc",
+        "test": "vitest --run"
+    },
+    "keywords": [
+        "registry",
+        "windows",
+        "fetch",
+        "read",
+        "system",
+        "os",
+        "utility",
+        "igorskyflyer"
+    ],
+    "license": "MIT",
+    "author": "Igor Dimitrijević <support@igorskyflyer.me> (https://github.com/igorskyflyer)",
+    "funding": "https://ko-fi.com/igorskyflyer",
+    "homepage": "https://github.com/igorskyflyer/npm-regkeys",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/igorskyflyer/npm-regkeys.git"
+    },
+    "bugs": {
+        "url": "https://github.com/igorskyflyer/npm-regkeys/issues"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "^2.2.0",
+        "@igor.dvlpr/biome-config-igorskyflyer": "^2.0.1",
+        "@types/node": "^22.17.2",
+        "typescript": "^5.9.2",
+        "vitest": "^3.2.4"
+    }
 }
