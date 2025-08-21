@@ -10,15 +10,20 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v4
+
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       - uses: actions/setup-node@v3
         with:
-          node-version: "22.17.2"
-      - run: npm ci
-      - run: npm test --if-present
-      - run: npx tsc
-      - uses: JS-DevTools/npm-publish@v3
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
-          provenance: true
-          access: public
-          ignore-scripts: true
+          node-version: "22"
+          registry-url: "https://registry.npmjs.org"
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test --if-present
+      - run: pnpm exec tsc
+      - run: pnpm publish --tag alpha --access public --provenance --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
