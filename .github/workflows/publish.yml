@@ -1,6 +1,7 @@
 on:
   push:
-    branches: main
+    tags:
+      - 'v*.*.*'
 
 jobs:
   publish:
@@ -10,12 +11,9 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v4
-
-
       - uses: pnpm/action-setup@v4
         with:
           version: 10
-
       - uses: actions/setup-node@v3
         with:
           node-version: "22"
