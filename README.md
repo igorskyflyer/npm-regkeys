@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/igorskyflyer/npm-regkeys/main/assets/regkeys.png" alt="Icon of RegKeys" width="256" height="256">
+  <img src="https://raw.githubusercontent.com/igorskyflyer/npm-regkeys/main/media/regkeys.png" alt="Icon of RegKeys" width="256" height="256">
 <h1 align="center">RegKeys</h1>
 </div>
 
