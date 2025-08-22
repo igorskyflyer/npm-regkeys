@@ -23,6 +23,6 @@ jobs:
       - run: pnpm install
       - run: pnpm --if-present test
       - run: pnpm exec tsc
-      - run: pnpm publish --tag alpha --access public --provenance --no-git-checks
+      - run: pnpm publish --access public --provenance --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
