@@ -4,6 +4,13 @@
 
 <br>
 
+## v3.0.2 (*22-Aug-2025*)
+
+- **✅ fix**: fix links in the README
+- **💻 dev**: update the release logic
+
+<br>
+
 ## v3.0.1 (*21-Aug-2025*)
 
 - **✅ fix**: improve RegExp performance
