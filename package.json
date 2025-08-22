@@ -19,7 +19,8 @@
     },
     "scripts": {
         "build": "tsc",
-        "test": "vitest --run"
+        "test": "vitest --run",
+        "pub": "git push --follow-tags"
     },
     "keywords": [
         "registry",
