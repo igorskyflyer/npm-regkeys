@@ -37,7 +37,7 @@
 - 🔡 Offers optional case‑sensitive matching
 - ♻️ Provides a way to clear cached results
 - 🖥 Ensures execution only on Windows systems
-- 🔧 Includes helper utilities for hive extraction, expansion, and OS detection
+- 🔧 Includes static variables for easier hives referencing
 
 <br>
 <br>
@@ -54,6 +54,8 @@ npm i @igorskyflyer/regkeys
 <br>
 
 ## 🤹🏼‍♂️ API
+
+### constructor()
 
 ```ts
 constructor(key): RegKeys
@@ -102,6 +104,9 @@ const registry: RegKeys = new RegKeys('HKLM/Software')
 
 <br>
 
+### get()
+
+
 ```ts
 get(forceRefresh: boolean = false): string[]
 ```
@@ -131,7 +136,7 @@ keys.forEach((key: string) => {
 
 <br>
 
-<a name="hasKey"></a>
+### hasKey()
 
 ```ts
 hasKey(searchFor: string, caseSensitive: boolean = false): boolean
@@ -161,9 +166,9 @@ const registry: RegKeys = new RegKeys('HKLM/Software')
 console.log(registry.hasKey('Microsoft'))
 ```
 
-<a name="hasKeys"></a>
-
 <br>
+
+### hasKeys()
 
 ```ts
 hasKeys(searchFor: string[], caseSensitive: boolean = false): boolean
@@ -192,11 +197,13 @@ console.log(registry.hasKeys(['Microsoft', 'Macromedia', 'Google', 'Adobe']))
 
 <br>
 
+### has()
+
 ```ts
 has(value: string|string[], caseSensitive: boolean = false): boolean|boolean[]
 ```
 
-> A generic method that checks whether the given key(s) is/are a direct child of the currently selected key. See both <a href="#hasKey">hasKey()</a> and <a href="#hasKeys">hasKeys()</a>. You can use this method for own convenience, it will pick the suited method depending on the type of the **value** parameter,
+> A generic method that checks whether the given key(s) is/are a direct child of the currently selected key. See both <a href="#haskey">hasKey()</a> and <a href="#haskeys">hasKeys()</a>. You can use this method for own convenience, it will pick the suited method depending on the type of the **value** parameter,
 
 - **value**: _string|string[]_, the key(s) to search for,
 - **caseSensitive**: _boolean_, indicates whether the search should be case-sensitive or not. Defaults to **false**,
@@ -219,6 +226,8 @@ console.log(registry.has(['Microsoft', 'Macromedia', 'Google', 'Adobe']))
 ```
 
 <br>
+
+### searchFor()
 
 ```ts
 searchFor(value: string, predicate: SearchPredicate): boolean
@@ -252,6 +261,8 @@ console.log(
 ```
 
 <br>
+
+### clear()
 
 ```ts
 clear(): void
