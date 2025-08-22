@@ -14,9 +14,6 @@
         "dist/*.js",
         "dist/*.d.ts"
     ],
-    "publishConfig": {
-        "access": "public"
-    },
     "scripts": {
         "build": "tsc",
         "test": "vitest --run",
@@ -49,6 +46,9 @@
         "@types/node": "^22.17.2",
         "typescript": "^5.9.2",
         "vitest": "^3.2.4"
+    },
+    "publishConfig": {
+        "access": "public"
     },
     "packageManager": "pnpm@10.15.0"
 }
