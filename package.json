@@ -1,6 +1,6 @@
 {
     "name": "@igorskyflyer/regkeys",
-    "version": "3.0.2",
+    "version": "3.0.3",
     "description": "📚 A package for fetching Windows registry keys. 🗝",
     "sideEffects": false,
     "engines": {
@@ -41,14 +41,14 @@
         "url": "https://github.com/igorskyflyer/npm-regkeys/issues"
     },
     "devDependencies": {
-        "@biomejs/biome": "^2.2.0",
+        "@biomejs/biome": "^2.2.6",
         "@igor.dvlpr/biome-config-igorskyflyer": "^2.0.1",
-        "@types/node": "^22.17.2",
-        "typescript": "^5.9.2",
+        "@types/node": "^22.18.11",
+        "typescript": "^5.9.3",
         "vitest": "^3.2.4"
     },
     "publishConfig": {
         "access": "public"
     },
-    "packageManager": "pnpm@10.15.0"
+    "packageManager": "pnpm@10.18.3"
 }
