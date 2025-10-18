@@ -4,6 +4,13 @@
 
 <br>
 
+## v3.0.3 (*18-Oct-2025*)
+
+- **💻 dev**: upgrade dependencies
+
+<br>
+<br>
+
 ## v3.0.2 (*22-Aug-2025*)
 
 - **✅ fix**: fix links in the README
